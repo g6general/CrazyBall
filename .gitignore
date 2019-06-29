@@ -2,8 +2,13 @@
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
-[Bb]uilds/
+Logs/
+Packages/
+Plugins/
 Assets/AssetStoreTools*
+
+.DS_Store
+.idea/
 
 # Visual Studio cache directory
 .vs/
