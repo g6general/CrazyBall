@@ -8,14 +8,14 @@ public class sphere : MonoBehaviour
     public Transform mStartPoint;
     public Transform mViewPoint;
 
-    private float mHorizontalSpeed = 15f;
+    public float mHorizontalSpeed;
     //private float mVerticalSpeed = 20f;
-    
-    //private float mMinVerticalSpeed = 5f;
-    private float mMaxVerticalSpeed = 35f;
 
-    private float mTopY = 8f;
-    private float mBottomY = 3.6f;
+    //private float mMinVerticalSpeed = 5f;
+    public float mMaxVerticalSpeed;
+
+    public float mTopY;
+    public float mBottomY;
     private Vector3 mDirection;
     
     private bool nIsButtonClicked = false;
@@ -32,7 +32,6 @@ public class sphere : MonoBehaviour
         mViewPoint.transform.Translate(Vector3.forward * horizontalStep);
         
         //transform.Translate(mViewPoint.transform.position);
-        transform.Translate(Vector3.forward * horizontalStep);
         //Vector3.Lerp(transform.position, mViewPoint.transform.position, Time.time);
 
         var verticalSpeed = mMaxVerticalSpeed;
@@ -73,8 +72,6 @@ public class sphere : MonoBehaviour
             camera.transform.Translate(Vector3.down * verticalCameraStep, Space.World);
         }
         
-        var horizontalCameraStep = mHorizontalSpeed * Time.deltaTime;
-        camera.transform.Translate(Vector3.forward * horizontalCameraStep, Space.World);
         //camera.transform.Translate(mViewPoint.transform.position);
     }
 
