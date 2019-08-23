@@ -44,12 +44,6 @@ public class main : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        //var horizontalStep = mHorizontalSpeed * Time.deltaTime;
-        //GetComponentInChildren<Camera>().transform.Translate(Vector3.forward * horizontalStep, Space.World);
-    }
-
     private void init()
     {
         mBlockSizeX = 3;

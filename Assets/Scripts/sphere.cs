@@ -9,7 +9,7 @@ public class sphere : MonoBehaviour
     public Transform mViewPoint;
 
     public float mHorizontalSpeed;
-    public float mMaxVerticalSpeed;
+    public float mVerticalSpeed;
 
     private float mAmplitude = 3f;
 
@@ -28,7 +28,7 @@ public class sphere : MonoBehaviour
         var horizontalStep = mHorizontalSpeed * Time.deltaTime;
         mViewPoint.transform.Translate(Vector3.forward * horizontalStep);
 
-        var verticalSpeed = mMaxVerticalSpeed;
+        var verticalSpeed = mVerticalSpeed;
         var verticalStep = verticalSpeed * Time.deltaTime;
 
         if (transform.position.y <= mViewPoint.position.y - mAmplitude / 2)    //BottomY
