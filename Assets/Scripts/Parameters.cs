@@ -14,7 +14,7 @@ public class Parameters : MonoBehaviour
     public Color mSoftBlockColor;
     public Color mRigidBlockColor;
     
-    private List<Position> mBlocks;
+    public List<Position> mBlocks;
     
     public Color mSphereColor;
     public int mSphereRadius;

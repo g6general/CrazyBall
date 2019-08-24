@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class sphere : MonoBehaviour
+public class Sphere : MonoBehaviour
 {
     public Transform mStartPoint;
     public Transform mViewPoint;
@@ -16,6 +17,12 @@ public class sphere : MonoBehaviour
     private Vector3 mDirection;
     
     private bool nIsButtonClicked = false;
+
+    void Awake()
+    {
+        var parameters = GameObject.Find("MainObject").GetComponent<Parameters>();
+        var test = parameters.mBlockSizeX;
+    }
 
     void Start()
     {

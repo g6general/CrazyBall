@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class main : MonoBehaviour
+public class Blocks : MonoBehaviour
 {
     private int mBlockSizeX;
     private int mBlockSizeY;
@@ -12,6 +12,12 @@ public class main : MonoBehaviour
     private int mBlocksInLength;
     private int mBlocksInHeight;
     private List<Position> mBlocks;
+    
+    void Awake()
+    {
+        var parameters = GameObject.Find("MainObject").GetComponent<Parameters>();
+        var test = parameters.mBlockSizeX;
+    }
 
     void Start()
     {
