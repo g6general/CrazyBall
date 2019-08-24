@@ -179,19 +179,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a43e5e3974da42dd8ebbb8dd1ad9084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mBlockSizeX: 0
-  mBlockSizeY: 0
-  mBlockSizeZ: 0
-  mBlocksInLength: 0
-  mBlocksInHeight: 0
-  mSoftBlockColor: {r: 0, g: 0, b: 0, a: 0}
-  mRigidBlockColor: {r: 0, g: 0, b: 0, a: 0}
-  mSphereColor: {r: 0, g: 0, b: 0, a: 0}
-  mSphereRadius: 0
-  mHorizontalSpeed: 0
-  mVerticalSpeed: 0
-  mDestroySpeed: 0
-  mAmplitude: 0
+  mBlockSizeX: 3
+  mBlockSizeY: 1
+  mBlockSizeZ: 10
+  mBlocksInLength: 9
+  mBlocksInHeight: 3
+  mSoftBlockColor: {r: 0, g: 0.8113208, b: 0.11774479, a: 0}
+  mRigidBlockColor: {r: 0.7830189, g: 0.31985584, b: 0.0110804355, a: 0}
+  mSphereColor: {r: 0.72312284, g: 0.078497685, b: 0.7924528, a: 0}
+  mSphereScale: 2
+  mHorizontalSpeed: 15
+  mVerticalSpeed: 35
+  mDestroySpeed: 5
+  mAmplitude: 3
   mCameraPosX: 0
   mCameraPosY: 0
   mCameraPosZ: 0

@@ -9,23 +9,32 @@ public class Sphere : MonoBehaviour
     public Transform mStartPoint;
     public Transform mViewPoint;
 
-    public float mHorizontalSpeed;
-    public float mVerticalSpeed;
-
-    private float mAmplitude = 3f;
+    private float mHorizontalSpeed;
+    private float mVerticalSpeed;
+    private float mDestroySpeed;
+    private float mAmplitude;
+    private float mScale;
+    private Color mColor;
 
     private Vector3 mDirection;
-    
     private bool nIsButtonClicked = false;
 
     void Awake()
     {
         var parameters = GameObject.Find("MainObject").GetComponent<Parameters>();
-        var test = parameters.mBlockSizeX;
+        mHorizontalSpeed = parameters.mHorizontalSpeed;
+        mVerticalSpeed = parameters.mVerticalSpeed;
+        mDestroySpeed = parameters.mDestroySpeed;
+        mAmplitude = parameters.mAmplitude;
+        mScale = parameters.mSphereScale;
+        mColor = parameters.mSphereColor;
     }
 
     void Start()
     {
+        transform.localScale = new Vector3(mScale, mScale, mScale);
+        GetComponent<MeshRenderer>().material.color = mColor;
+
         mViewPoint.position = mStartPoint.position;
         mDirection = Vector3.up;
     }
@@ -58,7 +67,7 @@ public class Sphere : MonoBehaviour
 
         if (nIsButtonClicked)
         {
-            mViewPoint.transform.Translate(Vector3.down * 5);
+            mViewPoint.transform.Translate(Vector3.down * mDestroySpeed);
         }
     }
 

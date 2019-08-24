@@ -13,25 +13,29 @@ public class Blocks : MonoBehaviour
     private int mBlocksInHeight;
     private List<Position> mBlocks;
     
-    void Awake()
-    {
-        var parameters = GameObject.Find("MainObject").GetComponent<Parameters>();
-        var test = parameters.mBlockSizeX;
-    }
-
     void Start()
     {
         init();
         
+        var parameters = GameObject.Find("MainObject").GetComponent<Parameters>();
+        mBlockSizeX = parameters.mBlockSizeX;
+        mBlockSizeY = parameters.mBlockSizeY;
+        mBlockSizeZ = parameters.mBlockSizeZ;
+        mBlocksInLength = parameters.mBlocksInLength;
+        mBlocksInHeight = parameters.mBlocksInHeight;
+        
         var rigidBlockPref = (GameObject)Resources.Load("Prefabs/rigid_block", typeof(GameObject));
         var softBlockPref = (GameObject)Resources.Load("Prefabs/soft_block", typeof(GameObject));
-        
+
         rigidBlockPref.transform.localScale = new Vector3(mBlockSizeX, mBlockSizeY, mBlockSizeZ);
         softBlockPref.transform.localScale = new Vector3(mBlockSizeX, mBlockSizeY, mBlockSizeZ);
 
         var blockMat = (Material)Resources.Load("Materials/block", typeof(Material));
         var breakableMat = (Material)Resources.Load("Materials/breakable", typeof(Material));
-        
+
+        blockMat.color = parameters.mRigidBlockColor;
+        breakableMat.color = parameters.mSoftBlockColor;
+
         rigidBlockPref.GetComponent<Renderer>().material = blockMat;
         softBlockPref.GetComponent<Renderer>().material = breakableMat;
 
@@ -52,13 +56,6 @@ public class Blocks : MonoBehaviour
 
     private void init()
     {
-        mBlockSizeX = 3;
-        mBlockSizeY = 1;
-        mBlockSizeZ = 10;
-        
-        mBlocksInLength = 9;
-        mBlocksInHeight = 3;
-
         mBlocks = new List<Position>
         {
             new Position(1, 0),
