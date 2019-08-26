@@ -121,7 +121,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f5c1fa9628f41ecab0e026643f6077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mStartPoint: {fileID: 0}
-  mViewPoint: {fileID: 0}
-  mHorizontalSpeed: 15
-  mVerticalSpeed: 35

@@ -182,22 +182,16 @@ MonoBehaviour:
   mBlockSizeX: 3
   mBlockSizeY: 1
   mBlockSizeZ: 10
-  mBlocksInLength: 9
-  mBlocksInHeight: 3
+  mBlocksInLength: 15
+  mBlocksInHeight: 5
   mSoftBlockColor: {r: 0, g: 0.8113208, b: 0.11774479, a: 0}
   mRigidBlockColor: {r: 0.7830189, g: 0.31985584, b: 0.0110804355, a: 0}
   mSphereColor: {r: 0.72312284, g: 0.078497685, b: 0.7924528, a: 0}
-  mSphereScale: 2
+  mSphereScale: 8
   mHorizontalSpeed: 15
   mVerticalSpeed: 35
   mDestroySpeed: 5
-  mAmplitude: 3
-  mCameraPosX: 0
-  mCameraPosY: 0
-  mCameraPosZ: 0
-  mCameraRotX: 0
-  mCameraRotY: 0
-  mCameraRotZ: 0
+  mAmplitude: 5
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +265,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1e-45, y: 1.3820947e-20, z: 1.36e-43, w: 0.1171875}
+  m_BoundingSphereOverride: {x: 4.02139e-40, y: 4.484e-42, z: 1.794e-42, w: 3.59e-43}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0

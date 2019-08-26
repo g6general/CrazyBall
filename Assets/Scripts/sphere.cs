@@ -6,14 +6,15 @@ using UnityEngine;
 
 public class Sphere : MonoBehaviour
 {
-    public Transform mStartPoint;
-    public Transform mViewPoint;
+    private Transform mStartPoint;
+    private Transform mViewPoint;
 
     private float mHorizontalSpeed;
     private float mVerticalSpeed;
     private float mDestroySpeed;
     private float mAmplitude;
     private float mScale;
+
     private Color mColor;
 
     private Vector3 mDirection;
@@ -28,6 +29,11 @@ public class Sphere : MonoBehaviour
         mAmplitude = parameters.mAmplitude;
         mScale = parameters.mSphereScale;
         mColor = parameters.mSphereColor;
+
+        mStartPoint = GameObject.Find("StartPoint").GetComponent<Transform>();
+        mViewPoint = GameObject.Find("ViewPoint").GetComponent<Transform>();
+
+        mStartPoint.position = new Vector3(0, 0 + parameters.mBlockSizeY * 2.5f + mAmplitude / 2 + mScale / 2, 0 - parameters.mBlockSizeZ * 1.2f);
     }
 
     void Start()
@@ -41,18 +47,17 @@ public class Sphere : MonoBehaviour
     
     void Update()
     {
-        var horizontalStep = mHorizontalSpeed * Time.deltaTime;
-        mViewPoint.transform.Translate(Vector3.forward * horizontalStep);
-
-        var verticalSpeed = mVerticalSpeed;
-        var verticalStep = verticalSpeed * Time.deltaTime;
-
         if (transform.position.y <= mViewPoint.position.y - mAmplitude / 2)    //BottomY
             mDirection = Vector3.up;
 
         if (transform.position.y >= mViewPoint.position.y + mAmplitude / 2)    //TopY
             mDirection = Vector3.down;
+        
+        var horizontalStep = mHorizontalSpeed * Time.deltaTime;
+        mViewPoint.transform.Translate(Vector3.forward * horizontalStep);
 
+        var verticalSpeed = mVerticalSpeed;
+        var verticalStep = verticalSpeed * Time.deltaTime;
         transform.Translate(mDirection * verticalStep);
         
         if (Input.GetMouseButtonDown(0))

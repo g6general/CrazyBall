@@ -12,7 +12,7 @@ public class Blocks : MonoBehaviour
     private int mBlocksInLength;
     private int mBlocksInHeight;
     private List<Position> mBlocks;
-    
+
     void Start()
     {
         init();
