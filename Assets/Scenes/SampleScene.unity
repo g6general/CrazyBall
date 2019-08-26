@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a43e5e3974da42dd8ebbb8dd1ad9084, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mBlockSizeX: 3
+  mBlockSizeX: 10
   mBlockSizeY: 1
   mBlockSizeZ: 10
   mBlocksInLength: 15
@@ -191,6 +191,7 @@ MonoBehaviour:
   mHorizontalSpeed: 15
   mVerticalSpeed: 35
   mDestroySpeed: 5
+  mStartLongitudinalOffset: 5
   mAmplitude: 5
 --- !u!1 &705507993
 GameObject:
@@ -265,7 +266,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 4.02139e-40, y: 4.484e-42, z: 1.794e-42, w: 3.59e-43}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0

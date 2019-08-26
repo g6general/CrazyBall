@@ -33,7 +33,14 @@ public class Sphere : MonoBehaviour
         mStartPoint = GameObject.Find("StartPoint").GetComponent<Transform>();
         mViewPoint = GameObject.Find("ViewPoint").GetComponent<Transform>();
 
-        mStartPoint.position = new Vector3(0, 0 + parameters.mBlockSizeY * 2.5f + mAmplitude / 2 + mScale / 2, 0 - parameters.mBlockSizeZ * 1.2f);
+        var startOffsetCoefY = parameters.mBlocksInHeight - 0.5f;
+        var startOffsetCoefZ = parameters.mStartLongitudinalOffset;
+
+        var startPosX = 0f;
+        var startPosY = parameters.mBlockSizeY * startOffsetCoefY + mAmplitude / 2 + mScale / 2;
+        var startPosZ = -parameters.mBlockSizeZ * 0.5f - startOffsetCoefZ;
+
+        mStartPoint.position = new Vector3(startPosX, startPosY, startPosZ);
     }
 
     void Start()
