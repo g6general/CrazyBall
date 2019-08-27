@@ -11,12 +11,11 @@ public class Blocks : MonoBehaviour
 
     private int mBlocksInLength;
     private int mBlocksInHeight;
-    private List<Position> mBlocks;
+    private List<Position> mBarriers;
+    private List<List<GameObject>> mBlocks;
 
     void Start()
     {
-        init();
-        
         var parameters = GameObject.Find("MainObject").GetComponent<Parameters>();
         mBlockSizeX = parameters.mBlockSizeX;
         mBlockSizeY = parameters.mBlockSizeY;
@@ -39,6 +38,8 @@ public class Blocks : MonoBehaviour
         rigidBlockPref.GetComponent<Renderer>().material = blockMat;
         softBlockPref.GetComponent<Renderer>().material = breakableMat;
 
+        init();
+
         for (var i = 0; i < mBlocksInHeight; ++i)
         {
             for (var j = 0; j < mBlocksInLength; ++j)
@@ -46,17 +47,17 @@ public class Blocks : MonoBehaviour
                 var vector = new Vector3(0, i * mBlockSizeY, j * mBlockSizeZ);
                 var pos = new Position(i, j);
 
-                if (mBlocks.Contains(pos))
-                    GameObject.Instantiate(rigidBlockPref, vector, Quaternion.identity);
+                if (mBarriers.Contains(pos))
+                    mBlocks[i].Add(GameObject.Instantiate(rigidBlockPref, vector, Quaternion.identity));
                 else
-                    GameObject.Instantiate(softBlockPref, vector, Quaternion.identity);
+                    mBlocks[i].Add(GameObject.Instantiate(softBlockPref, vector, Quaternion.identity));
             }
         }
     }
 
     private void init()
     {
-        mBlocks = new List<Position>
+        mBarriers = new List<Position>
         {
             new Position(1, 0),
             new Position(0, 1),
@@ -72,6 +73,29 @@ public class Blocks : MonoBehaviour
             new Position(2, 7),
             new Position(1, 8)
         };
+
+        mBlocks = new List<List<GameObject>>();
+
+        for (var i = 0; i < mBlocksInHeight; ++i)
+        {
+            mBlocks.Add(new List<GameObject>(mBlocksInLength));
+        }
+    }
+
+    public void DestroyUpperRaw()
+    {
+        if (mBlocks.Count == 0)
+            return;
+
+        var lastIndex = mBlocks.Count - 1;
+        var upperRaw = mBlocks[lastIndex];
+
+        foreach (var block in upperRaw)
+        {
+            Destroy(block);
+        }
+
+        mBlocks.RemoveAt(lastIndex);
     }
 }
 

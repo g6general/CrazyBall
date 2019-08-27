@@ -35,9 +35,10 @@ public class Sphere : MonoBehaviour
 
         var startOffsetCoefY = parameters.mBlocksInHeight - 0.5f;
         var startOffsetCoefZ = parameters.mStartLongitudinalOffset;
+        var correctionCoefY = mScale * 0.15f;
 
         var startPosX = 0f;
-        var startPosY = parameters.mBlockSizeY * startOffsetCoefY + mAmplitude / 2 + mScale / 2;
+        var startPosY = parameters.mBlockSizeY * startOffsetCoefY + mAmplitude / 2 + mScale / 2 + correctionCoefY;
         var startPosZ = -parameters.mBlockSizeZ * 0.5f - startOffsetCoefZ;
 
         mStartPoint.position = new Vector3(startPosX, startPosY, startPosZ);
@@ -85,6 +86,9 @@ public class Sphere : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log("COLLISION!!");
+        //Debug.Log("Collision!");
+
+        var blocks = GameObject.Find("MainObject").GetComponent<Blocks>();
+        blocks.DestroyUpperRaw();
     }
 }

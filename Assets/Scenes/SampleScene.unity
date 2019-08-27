@@ -180,17 +180,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mBlockSizeX: 10
-  mBlockSizeY: 1
+  mBlockSizeY: 5
   mBlockSizeZ: 10
   mBlocksInLength: 15
-  mBlocksInHeight: 5
+  mBlocksInHeight: 10
   mSoftBlockColor: {r: 0, g: 0.8113208, b: 0.11774479, a: 0}
   mRigidBlockColor: {r: 0.7830189, g: 0.31985584, b: 0.0110804355, a: 0}
   mSphereColor: {r: 0.72312284, g: 0.078497685, b: 0.7924528, a: 0}
   mSphereScale: 8
   mHorizontalSpeed: 15
   mVerticalSpeed: 35
-  mDestroySpeed: 5
+  mDestroySpeed: 2
   mStartLongitudinalOffset: 5
   mAmplitude: 5
 --- !u!1 &705507993
@@ -266,7 +266,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 5.9990447e-20, z: 1.39e-43, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
