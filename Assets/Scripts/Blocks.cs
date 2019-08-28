@@ -11,6 +11,10 @@ public class Blocks : MonoBehaviour
 
     private int mBlocksInLength;
     private int mBlocksInHeight;
+
+    private Color mRigidBlockColor;
+    private Color mSoftBlockColor;
+
     private List<Position> mBarriers;
     private List<List<GameObject>> mBlocks;
 
@@ -23,7 +27,24 @@ public class Blocks : MonoBehaviour
         mBlocksInLength = parameters.getLength();
         mBlocksInHeight = parameters.getHeight();
         mBarriers = parameters.mBarriers;
+        mRigidBlockColor = parameters.mRigidBlockColor;
+        mSoftBlockColor = parameters.mSoftBlockColor;
         
+        mBlocks = new List<List<GameObject>>();
+
+        CreateWall();
+    }
+
+    private void init()
+    {
+        for (var i = 0; i < mBlocksInHeight; ++i)
+        {
+            mBlocks.Add(new List<GameObject>(mBlocksInLength));
+        }
+    }
+
+    public void CreateWall()
+    {
         var rigidBlockPref = (GameObject)Resources.Load("Prefabs/rigid_block", typeof(GameObject));
         var softBlockPref = (GameObject)Resources.Load("Prefabs/soft_block", typeof(GameObject));
 
@@ -33,14 +54,19 @@ public class Blocks : MonoBehaviour
         var blockMat = (Material)Resources.Load("Materials/block", typeof(Material));
         var breakableMat = (Material)Resources.Load("Materials/breakable", typeof(Material));
 
-        blockMat.color = parameters.mRigidBlockColor;
-        breakableMat.color = parameters.mSoftBlockColor;
+        blockMat.color = mRigidBlockColor;
+        breakableMat.color = mSoftBlockColor;
 
         rigidBlockPref.GetComponent<Renderer>().material = blockMat;
         softBlockPref.GetComponent<Renderer>().material = breakableMat;
+        
+        while (DestroyUpperRaw());
 
-        init();
-
+        for (var i = 0; i < mBlocksInHeight; ++i)
+        {
+            mBlocks.Add(new List<GameObject>(mBlocksInLength));
+        }
+        
         for (var i = 0; i < mBlocksInHeight; ++i)
         {
             for (var j = 0; j < mBlocksInLength; ++j)
@@ -56,20 +82,10 @@ public class Blocks : MonoBehaviour
         }
     }
 
-    private void init()
-    {
-        mBlocks = new List<List<GameObject>>();
-
-        for (var i = 0; i < mBlocksInHeight; ++i)
-        {
-            mBlocks.Add(new List<GameObject>(mBlocksInLength));
-        }
-    }
-
-    public void DestroyUpperRaw()
+    public bool DestroyUpperRaw()
     {
         if (mBlocks.Count == 0)
-            return;
+            return false;
 
         var lastIndex = mBlocks.Count - 1;
         var upperRaw = mBlocks[lastIndex];
@@ -80,6 +96,8 @@ public class Blocks : MonoBehaviour
         }
 
         mBlocks.RemoveAt(lastIndex);
+
+        return true;
     }
 }
 

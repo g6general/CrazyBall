@@ -86,11 +86,20 @@ public class Sphere : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void RestartGame()
     {
-        //Debug.Log("Collision!");
+        mViewPoint.position = mStartPoint.position;
 
         var blocks = GameObject.Find("MainObject").GetComponent<Blocks>();
+        blocks.CreateWall();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        var blocks = GameObject.Find("MainObject").GetComponent<Blocks>();
         blocks.DestroyUpperRaw();
+
+        if (false)
+            RestartGame();
     }
 }
