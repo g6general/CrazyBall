@@ -20,8 +20,9 @@ public class Blocks : MonoBehaviour
         mBlockSizeX = parameters.mBlockSizeX;
         mBlockSizeY = parameters.mBlockSizeY;
         mBlockSizeZ = parameters.mBlockSizeZ;
-        mBlocksInLength = parameters.mBlocksInLength;
-        mBlocksInHeight = parameters.mBlocksInHeight;
+        mBlocksInLength = parameters.getLength();
+        mBlocksInHeight = parameters.getHeight();
+        mBarriers = parameters.mBarriers;
         
         var rigidBlockPref = (GameObject)Resources.Load("Prefabs/rigid_block", typeof(GameObject));
         var softBlockPref = (GameObject)Resources.Load("Prefabs/soft_block", typeof(GameObject));
@@ -57,23 +58,6 @@ public class Blocks : MonoBehaviour
 
     private void init()
     {
-        mBarriers = new List<Position>
-        {
-            new Position(1, 0),
-            new Position(0, 1),
-            new Position(2, 1),
-            new Position(1, 2),
-            new Position(0, 3),
-            new Position(2, 3),
-            new Position(1, 4),
-            new Position(0, 5),
-            new Position(2, 5),
-            new Position(1, 6),
-            new Position(0, 7),
-            new Position(2, 7),
-            new Position(1, 8)
-        };
-
         mBlocks = new List<List<GameObject>>();
 
         for (var i = 0; i < mBlocksInHeight; ++i)

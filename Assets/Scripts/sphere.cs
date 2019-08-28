@@ -20,7 +20,7 @@ public class Sphere : MonoBehaviour
     private Vector3 mDirection;
     private bool nIsButtonClicked = false;
 
-    void Awake()
+    void init()
     {
         var parameters = GameObject.Find("MainObject").GetComponent<Parameters>();
         mHorizontalSpeed = parameters.mHorizontalSpeed;
@@ -33,7 +33,7 @@ public class Sphere : MonoBehaviour
         mStartPoint = GameObject.Find("StartPoint").GetComponent<Transform>();
         mViewPoint = GameObject.Find("ViewPoint").GetComponent<Transform>();
 
-        var startOffsetCoefY = parameters.mBlocksInHeight - 0.5f;
+        var startOffsetCoefY = parameters.getHeight() - 0.5f;
         var startOffsetCoefZ = parameters.mStartLongitudinalOffset;
         var correctionCoefY = mScale * 0.15f;
 
@@ -46,6 +46,8 @@ public class Sphere : MonoBehaviour
 
     void Start()
     {
+        init();
+        
         transform.localScale = new Vector3(mScale, mScale, mScale);
         GetComponent<MeshRenderer>().material.color = mColor;
 

@@ -182,8 +182,8 @@ MonoBehaviour:
   mBlockSizeX: 10
   mBlockSizeY: 5
   mBlockSizeZ: 10
-  mBlocksInLength: 15
-  mBlocksInHeight: 10
+  mBlocksInLength: 25
+  mBlocksInHeight: 15
   mSoftBlockColor: {r: 0, g: 0.8113208, b: 0.11774479, a: 0}
   mRigidBlockColor: {r: 0.7830189, g: 0.31985584, b: 0.0110804355, a: 0}
   mSphereColor: {r: 0.72312284, g: 0.078497685, b: 0.7924528, a: 0}
@@ -266,7 +266,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 5.9990447e-20, z: 1.39e-43, w: 0}
+  m_BoundingSphereOverride: {x: NaN, y: 1.5e-44, z: 4.5918e-41, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
