@@ -99,7 +99,7 @@ public class Sphere : MonoBehaviour
         var blocks = GameObject.Find("MainObject").GetComponent<Blocks>();
         blocks.DestroyUpperRaw();
 
-        if (false)
+        if (collision.gameObject.name == "rigid_block")
             RestartGame();
     }
 }

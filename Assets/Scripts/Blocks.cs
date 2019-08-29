@@ -75,9 +75,17 @@ public class Blocks : MonoBehaviour
                 var pos = new Position(i, j);
 
                 if (mBarriers.Contains(pos))
-                    mBlocks[i].Add(GameObject.Instantiate(rigidBlockPref, vector, Quaternion.identity));
+                {
+                    var newObject = GameObject.Instantiate(rigidBlockPref, vector, Quaternion.identity);
+                    newObject.name = "rigid_block";
+                    mBlocks[i].Add(newObject);
+                }
                 else
-                    mBlocks[i].Add(GameObject.Instantiate(softBlockPref, vector, Quaternion.identity));
+                {
+                    var newObject = GameObject.Instantiate(softBlockPref, vector, Quaternion.identity);
+                    newObject.name = "soft_block";
+                    mBlocks[i].Add(newObject);
+                }
             }
         }
     }
