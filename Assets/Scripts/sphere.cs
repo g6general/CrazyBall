@@ -15,6 +15,9 @@ public class Sphere : MonoBehaviour
     private float mAmplitude;
     private float mScale;
 
+    private Parameters mParameters;
+    private ProgressBar mProgressBar;
+
     private Color mColor;
 
     private Vector3 mDirection;
@@ -22,24 +25,26 @@ public class Sphere : MonoBehaviour
 
     void init()
     {
-        var parameters = GameObject.Find("MainObject").GetComponent<Parameters>();
-        mHorizontalSpeed = parameters.mHorizontalSpeed;
-        mVerticalSpeed = parameters.mVerticalSpeed;
-        mDestroySpeed = parameters.mDestroySpeed;
-        mAmplitude = parameters.mAmplitude;
-        mScale = parameters.mSphereScale;
-        mColor = parameters.mSphereColor;
+        mProgressBar = GameObject.Find("Canvas").GetComponent<ProgressBar>();
+        
+        mParameters = GameObject.Find("MainObject").GetComponent<Parameters>();
+        mHorizontalSpeed = mParameters.mHorizontalSpeed;
+        mVerticalSpeed = mParameters.mVerticalSpeed;
+        mDestroySpeed = mParameters.mDestroySpeed;
+        mAmplitude = mParameters.mAmplitude;
+        mScale = mParameters.mSphereScale;
+        mColor = mParameters.mSphereColor;
 
         mStartPoint = GameObject.Find("StartPoint").GetComponent<Transform>();
         mViewPoint = GameObject.Find("ViewPoint").GetComponent<Transform>();
 
-        var startOffsetCoefY = parameters.getHeight() - 0.5f;
-        var startOffsetCoefZ = parameters.mStartLongitudinalOffset;
+        var startOffsetCoefY = mParameters.getHeight() - 0.5f;
+        var startOffsetCoefZ = mParameters.mStartLongitudinalOffset;
         var correctionCoefY = mScale * 0.15f;
 
         var startPosX = 0f;
-        var startPosY = parameters.mBlockSizeY * startOffsetCoefY + mAmplitude / 2 + mScale / 2 + correctionCoefY;
-        var startPosZ = -parameters.mBlockSizeZ * 0.5f - startOffsetCoefZ;
+        var startPosY = mParameters.mBlockSizeY * startOffsetCoefY + mAmplitude / 2 + mScale / 2 + correctionCoefY;
+        var startPosZ = -mParameters.mBlockSizeZ * 0.5f - startOffsetCoefZ;
 
         mStartPoint.position = new Vector3(startPosX, startPosY, startPosZ);
     }
@@ -84,6 +89,15 @@ public class Sphere : MonoBehaviour
         {
             mViewPoint.transform.Translate(Vector3.down * mDestroySpeed);
         }
+
+        var isLengthPassed = (transform.position.z >=
+                              (mParameters.getLength() - 0.5f) * mParameters.mBlockSizeZ);
+
+        if (isLengthPassed)
+        {
+            mHorizontalSpeed = 0;
+            mProgressBar.Stop();
+        }
     }
 
     private void RestartGame()
@@ -93,8 +107,7 @@ public class Sphere : MonoBehaviour
         var blocks = GameObject.Find("MainObject").GetComponent<Blocks>();
         blocks.CreateWall();
 
-        var progressBar = GameObject.Find("Canvas").GetComponent<ProgressBar>();
-        progressBar.Reset();
+        mProgressBar.Reset();
     }
 
     private void OnCollisionEnter(Collision collision)

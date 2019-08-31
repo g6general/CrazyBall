@@ -28,4 +28,9 @@ public class ProgressBar : MonoBehaviour
     {
         mProgressBar.localScale = new Vector3(0, mProgressBar.localScale.y);
     }
+
+    public void Stop()
+    {
+        mSphereSpeedCoef = 0;
+    }
 }

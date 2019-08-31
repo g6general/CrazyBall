@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mBlockSizeX: 3
   mBlockSizeY: 3
-  mBlockSizeZ: 10
+  mBlockSizeZ: 20
   mSoftBlockColor: {r: 0, g: 0.8113208, b: 0.11774479, a: 0}
   mRigidBlockColor: {r: 0.7830189, g: 0.31985584, b: 0.0110804355, a: 0}
   mSphereColor: {r: 0.72312284, g: 0.078497685, b: 0.7924528, a: 0}
