@@ -92,6 +92,9 @@ public class Sphere : MonoBehaviour
 
         var blocks = GameObject.Find("MainObject").GetComponent<Blocks>();
         blocks.CreateWall();
+
+        var progressBar = GameObject.Find("Canvas").GetComponent<ProgressBar>();
+        progressBar.Reset();
     }
 
     private void OnCollisionEnter(Collision collision)

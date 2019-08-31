@@ -23,4 +23,9 @@ public class ProgressBar : MonoBehaviour
         var horizontalStep = mSphereSpeedCoef * Time.deltaTime;
         mProgressBar.localScale = new Vector3(mProgressBar.localScale.x + horizontalStep, mProgressBar.localScale.y);
     }
+
+    public void Reset()
+    {
+        mProgressBar.localScale = new Vector3(0, mProgressBar.localScale.y);
+    }
 }
