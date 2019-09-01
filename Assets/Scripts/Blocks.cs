@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class Blocks : MonoBehaviour
 {
-    private int mBlockSizeX;
-    private int mBlockSizeY;
-    private int mBlockSizeZ;
+    private float mBlockSizeX;
+    private float mBlockSizeY;
+    private float mBlockSizeZ;
+
+    private float mDeltaZ;
 
     private int mBlocksInLength;
     private int mBlocksInHeight;
@@ -24,6 +26,7 @@ public class Blocks : MonoBehaviour
         mBlockSizeX = parameters.mBlockSizeX;
         mBlockSizeY = parameters.mBlockSizeY;
         mBlockSizeZ = parameters.mBlockSizeZ;
+        mDeltaZ = parameters.mDeltaZ;
         mBlocksInLength = parameters.getLength();
         mBlocksInHeight = parameters.getHeight();
         mBarriers = parameters.mBarriers;
@@ -66,12 +69,12 @@ public class Blocks : MonoBehaviour
         {
             mBlocks.Add(new List<GameObject>(mBlocksInLength));
         }
-        
+
         for (var i = 0; i < mBlocksInHeight; ++i)
         {
             for (var j = 0; j < mBlocksInLength; ++j)
             {
-                var vector = new Vector3(0, i * mBlockSizeY, j * mBlockSizeZ);
+                var vector = new Vector3(0, i * mBlockSizeY, j * mBlockSizeZ + mDeltaZ * (mBlocksInHeight - 1 - i));
                 var pos = new Position(i, j);
 
                 if (mBarriers.Contains(pos))

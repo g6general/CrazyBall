@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class Parameters : MonoBehaviour
 {
-    public int mBlockSizeX;
-    public int mBlockSizeY;
-    public int mBlockSizeZ;
+    public float mBlockSizeX;
+    public float mBlockSizeY;
+    public float mBlockSizeZ;
+    public float mDeltaZ;
     private int mBlocksInLength;
     private int mBlocksInHeight;
     public Color mSoftBlockColor;
