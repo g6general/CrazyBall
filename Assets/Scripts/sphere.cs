@@ -14,6 +14,8 @@ public class Sphere : MonoBehaviour
     private float mDestroySpeed;
     private float mAmplitude;
     private float mScale;
+    private float mDeltaY;
+    private float mNumberOfDestroyedRows;
 
     private Parameters mParameters;
     private ProgressBar mProgressBar;
@@ -40,13 +42,22 @@ public class Sphere : MonoBehaviour
 
         var startOffsetCoefY = mParameters.getHeight() - 0.5f;
         var startOffsetCoefZ = mParameters.mStartLongitudinalOffset;
-        var correctionCoefY = mScale * 0.15f;
+        var correctionCoefY = mScale * 0.2f;
+
+        mDeltaY = mAmplitude / 2 + mScale / 2 + correctionCoefY;
 
         var startPosX = 0f;
-        var startPosY = mParameters.mBlockSizeY * startOffsetCoefY + mAmplitude / 2 + mScale / 2 + correctionCoefY;
+        var startPosY = mParameters.mBlockSizeY * startOffsetCoefY + mDeltaY;
         var startPosZ = -mParameters.mBlockSizeZ * 0.5f - startOffsetCoefZ;
 
         mStartPoint.position = new Vector3(startPosX, startPosY, startPosZ);
+
+        mNumberOfDestroyedRows = 0;
+    }
+
+    private float GetCurrentHeight()
+    {
+        return (mParameters.getHeight() - mNumberOfDestroyedRows - 0.5f) * mParameters.mBlockSizeY;
     }
 
     void Start()
@@ -83,6 +94,8 @@ public class Sphere : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             nIsButtonClicked = false;
+
+            mViewPoint.position = new Vector3(mViewPoint.position.x, GetCurrentHeight() + mDeltaY, mViewPoint.position.z);
         }
 
         if (nIsButtonClicked)
@@ -103,6 +116,7 @@ public class Sphere : MonoBehaviour
     private void RestartGame()
     {
         mViewPoint.position = mStartPoint.position;
+        mNumberOfDestroyedRows = 0;
 
         var blocks = GameObject.Find("MainObject").GetComponent<Blocks>();
         blocks.CreateWall();
@@ -113,7 +127,8 @@ public class Sphere : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         var blocks = GameObject.Find("MainObject").GetComponent<Blocks>();
-        blocks.DestroyUpperRaw();
+        blocks.DestroyUpperRow();
+        ++mNumberOfDestroyedRows;
 
         if (collision.gameObject.name == "rigid_block")
             RestartGame();

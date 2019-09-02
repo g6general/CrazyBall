@@ -63,7 +63,7 @@ public class Blocks : MonoBehaviour
         rigidBlockPref.GetComponent<Renderer>().material = blockMat;
         softBlockPref.GetComponent<Renderer>().material = breakableMat;
         
-        while (DestroyUpperRaw());
+        while (DestroyUpperRow());
 
         for (var i = 0; i < mBlocksInHeight; ++i)
         {
@@ -93,7 +93,7 @@ public class Blocks : MonoBehaviour
         }
     }
 
-    public bool DestroyUpperRaw()
+    public bool DestroyUpperRow()
     {
         if (mBlocks.Count == 0)
             return false;
