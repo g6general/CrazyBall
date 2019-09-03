@@ -42,9 +42,8 @@ public class Sphere : MonoBehaviour
 
         var startOffsetCoefY = mParameters.getHeight() - 0.5f;
         var startOffsetCoefZ = mParameters.mStartLongitudinalOffset;
-        var correctionCoefY = mScale * 0.2f;
 
-        mDeltaY = mAmplitude / 2 + mScale / 2 + correctionCoefY;
+        mDeltaY = mAmplitude / 2 + mScale / 2;
 
         var startPosX = 0f;
         var startPosY = mParameters.mBlockSizeY * startOffsetCoefY + mDeltaY;
@@ -131,11 +130,16 @@ public class Sphere : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        var blocks = GameObject.Find("MainObject").GetComponent<Blocks>();
-        blocks.DestroyUpperRow();
-        ++mNumberOfDestroyedRows;
-
         if (collision.gameObject.name == "rigid_block")
+        {
             RestartGame();
+        }
+
+        if (nIsButtonClicked)
+        {
+            var blocks = GameObject.Find("MainObject").GetComponent<Blocks>();
+            blocks.DestroyUpperRow();
+            ++mNumberOfDestroyedRows;
+        }
     }
 }
