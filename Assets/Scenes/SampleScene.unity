@@ -189,7 +189,8 @@ MonoBehaviour:
   mSphereColor: {r: 0.72312284, g: 0.078497685, b: 0.7924528, a: 0}
   mSphereScale: 4
   mHorizontalSpeed: 15
-  mVerticalSpeed: 35
+  mVerticalSpeed: 40
+  mSlowDownCoef: 1.05
   mDestroySpeed: 0.5
   mStartLongitudinalOffset: 5
   mAmplitude: 5
@@ -345,7 +346,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1e-45, y: 3.77332e-18, z: 1.61e-43, w: 0.05078125}
+  m_BoundingSphereOverride: {x: 2.92008e-40, y: 1.13e-41, z: 2.87e-42, w: 1.0403e-41}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0

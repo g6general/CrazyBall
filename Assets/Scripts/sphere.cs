@@ -78,19 +78,24 @@ public class Sphere : MonoBehaviour
 
         if (transform.position.y >= mViewPoint.position.y + mAmplitude / 2)    //TopY
             mDirection = Vector3.down;
-        
+
         var horizontalStep = mHorizontalSpeed * Time.deltaTime;
         mViewPoint.transform.Translate(Vector3.forward * horizontalStep);
 
-        var verticalSpeed = mVerticalSpeed;
+        var h = transform.position.y - GetCurrentHeight() - mScale / 2;
+        if (h > mAmplitude)
+            h = mAmplitude;
+
+        var verticalSpeed = mVerticalSpeed * Mathf.Sqrt(1f - h / (mParameters.mSlowDownCoef * mAmplitude));
+
         var verticalStep = verticalSpeed * Time.deltaTime;
         transform.Translate(mDirection * verticalStep);
-        
+
         if (Input.GetMouseButtonDown(0))
         {
             nIsButtonClicked = true;
         }
-        
+
         if (Input.GetMouseButtonUp(0))
         {
             nIsButtonClicked = false;

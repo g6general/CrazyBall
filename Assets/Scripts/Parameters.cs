@@ -18,6 +18,7 @@ public class Parameters : MonoBehaviour
     public float mSphereScale;
     public float mHorizontalSpeed;
     public float mVerticalSpeed;
+    public float mSlowDownCoef;
     public float mDestroySpeed;
     public float mStartLongitudinalOffset;
     public float mAmplitude;
