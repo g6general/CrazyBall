@@ -162,6 +162,8 @@ public class Sphere : MonoBehaviour
             var blocks = GameObject.Find("MainObject").GetComponent<Blocks>();
             blocks.DestroyUpperRow();
             ++mNumberOfDestroyedRows;
+
+            Handheld.Vibrate();
         }
     }
 }
