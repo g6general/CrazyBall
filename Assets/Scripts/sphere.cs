@@ -17,8 +17,9 @@ public class Sphere : MonoBehaviour
     private float mDeltaY;
     private float mNumberOfDestroyedRows;
 
+    private bool mGameStoped;
     private Parameters mParameters;
-    private ProgressBar mProgressBar;
+    private Ui mUi;
 
     private Color mColor;
 
@@ -27,9 +28,9 @@ public class Sphere : MonoBehaviour
 
     void init()
     {
-        mProgressBar = GameObject.Find("Canvas").GetComponent<ProgressBar>();
-        
+        mUi = GameObject.Find("Canvas").GetComponent<Ui>();
         mParameters = GameObject.Find("MainObject").GetComponent<Parameters>();
+        
         mHorizontalSpeed = mParameters.mHorizontalSpeed;
         mVerticalSpeed = mParameters.mVerticalSpeed;
         mDestroySpeed = mParameters.mDestroySpeed;
@@ -52,6 +53,7 @@ public class Sphere : MonoBehaviour
         mStartPoint.position = new Vector3(startPosX, startPosY, startPosZ);
 
         mNumberOfDestroyedRows = 0;
+        mGameStoped = false;
     }
 
     private float GetCurrentHeight()
@@ -90,7 +92,7 @@ public class Sphere : MonoBehaviour
         var verticalStep = verticalSpeed * Time.deltaTime;
         transform.Translate(mDirection * verticalStep);
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !mGameStoped)
         {
             nIsButtonClicked = true;
         }
@@ -113,26 +115,46 @@ public class Sphere : MonoBehaviour
         if (isLengthPassed)
         {
             mHorizontalSpeed = 0;
-            mProgressBar.Stop();
+            mUi.StopProgressBar();
+            
+            mUi.ActivateWinUi();
         }
     }
 
-    private void RestartGame()
+    public void RestartGame()
     {
         mViewPoint.position = mStartPoint.position;
         mNumberOfDestroyedRows = 0;
 
         var blocks = GameObject.Find("MainObject").GetComponent<Blocks>();
         blocks.CreateWall();
+        
+        mHorizontalSpeed = mParameters.mHorizontalSpeed;
+        mVerticalSpeed = mParameters.mVerticalSpeed;
 
-        mProgressBar.Reset();
+        mUi.DeactivateUi();
+        mUi.ResetProgressBar();
+        mUi.StartProgressBar();
+
+        mGameStoped = false;
+    }
+
+    private void StopGame()
+    {
+        mGameStoped = true;
+        
+        mHorizontalSpeed = 0;
+        mVerticalSpeed = 0;
+
+        mUi.StopProgressBar();
+        mUi.ActivateUi();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "rigid_block")
         {
-            RestartGame();
+            StopGame();
         }
 
         if (nIsButtonClicked)
