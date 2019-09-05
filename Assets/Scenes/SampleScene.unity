@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.49641287, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -182,18 +182,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mBlockSizeX: 3
   mBlockSizeY: 3
-  mBlockSizeZ: 20
-  mDeltaZ: 5
-  mSoftBlockColor: {r: 0, g: 0.8113208, b: 0.11774479, a: 0}
-  mRigidBlockColor: {r: 0.7830189, g: 0.31985584, b: 0.0110804355, a: 0}
-  mSphereColor: {r: 0.72312284, g: 0.078497685, b: 0.7924528, a: 0}
-  mSphereScale: 4
+  mBlockSizeZ: 10
+  mDeltaZ: 1
+  mSoftBlockColor: {r: 1, g: 1, b: 1, a: 0}
+  mRigidBlockColor: {r: 0.78431374, g: 0.011764695, b: 0.091086134, a: 0}
+  mSphereColor: {r: 1, g: 1, b: 1, a: 0}
+  mSphereScale: 2
   mHorizontalSpeed: 15
-  mVerticalSpeed: 40
+  mVerticalSpeed: 20
   mSlowDownCoef: 1.05
-  mDestroySpeed: 1
-  mStartLongitudinalOffset: 5
-  mAmplitude: 5
+  mDestroySpeed: 0.2
+  mStartLongitudinalOffset: 3
+  mAmplitude: 3
 --- !u!1 &146552182
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,7 +346,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 6.078125, y: 1.5e-44, z: 0, w: 2}
+  m_BoundingSphereOverride: {x: 1.1e-44, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
