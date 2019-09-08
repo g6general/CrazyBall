@@ -90,7 +90,8 @@ public class Sphere : MonoBehaviour
         var verticalSpeed = mVerticalSpeed * Mathf.Sqrt(1f - h / (mParameters.mSlowDownCoef * mAmplitude));
 
         var verticalStep = verticalSpeed * Time.deltaTime;
-        transform.Translate(mDirection * verticalStep);
+        if (!nIsButtonClicked)
+            transform.Translate(mDirection * verticalStep);
 
         if (Input.GetMouseButtonDown(0) && !mGameStoped)
         {
