@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class Sphere : MonoBehaviour
+public class sphere : MonoBehaviour
 {
     private Transform mStartPoint;
     private Transform mViewPoint;

@@ -79,7 +79,7 @@ public class Ui : MonoBehaviour
 
     private void OnButtonClicked()
     {
-        var sphere = GameObject.Find("Sphere").GetComponent<Sphere>();
+        var sphere = GameObject.Find("Sphere").GetComponent<sphere>();
         sphere.RestartGame();
     }
 }
