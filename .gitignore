@@ -5,6 +5,7 @@
 Logs/
 Packages/
 Plugins/
+Plugins.meta
 Assets/AssetStoreTools*
 
 profile.json
