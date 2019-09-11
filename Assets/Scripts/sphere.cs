@@ -24,7 +24,8 @@ public class sphere : MonoBehaviour
     private Color mColor;
 
     private Vector3 mDirection;
-    private bool nIsButtonClicked = false;
+    private bool mIsButtonClicked = false;
+    private bool mSphereMovingDown = false;
 
     void init()
     {
@@ -90,22 +91,23 @@ public class sphere : MonoBehaviour
         var verticalSpeed = mVerticalSpeed * Mathf.Sqrt(1f - h / (mParameters.mSlowDownCoef * mAmplitude));
 
         var verticalStep = verticalSpeed * Time.deltaTime;
-        if (!nIsButtonClicked)
+        if (!mSphereMovingDown)
             transform.Translate(mDirection * verticalStep);
 
         if (Input.GetMouseButtonDown(0) && !mGameStoped)
         {
-            nIsButtonClicked = true;
+            mIsButtonClicked = true;
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            nIsButtonClicked = false;
+            mIsButtonClicked = false;
+            mSphereMovingDown = false;
 
             mViewPoint.position = new Vector3(mViewPoint.position.x, GetCurrentHeight() + mDeltaY, mViewPoint.position.z);
         }
 
-        if (nIsButtonClicked)
+        if (mSphereMovingDown)
         {
             mViewPoint.transform.Translate(Vector3.down * mDestroySpeed);
         }
@@ -158,8 +160,10 @@ public class sphere : MonoBehaviour
             StopGame();
         }
 
-        if (nIsButtonClicked)
+        if (mIsButtonClicked)
         {
+            mSphereMovingDown = true;
+            
             var blocks = GameObject.Find("MainObject").GetComponent<Blocks>();
             blocks.DestroyUpperRow();
             ++mNumberOfDestroyedRows;
