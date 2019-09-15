@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Ui : MonoBehaviour
+public class UiSystem : MonoBehaviour
 {
     private RectTransform mProgressBar;
     private float mSphereSpeedCoef;
@@ -79,7 +79,7 @@ public class Ui : MonoBehaviour
 
     private void OnButtonClicked()
     {
-        var sphere = GameObject.Find("Sphere").GetComponent<sphere>();
+        var sphere = GameObject.Find("Sphere").GetComponent<Ball>();
         sphere.RestartGame();
     }
 }

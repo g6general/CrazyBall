@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class Blocks : MonoBehaviour
+public class Road : MonoBehaviour
 {
     private float mBlockSizeX;
     private float mBlockSizeY;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class sphere : MonoBehaviour
+public class Ball : MonoBehaviour
 {
     private Transform mStartPoint;
     private Transform mViewPoint;
@@ -19,7 +19,7 @@ public class sphere : MonoBehaviour
 
     private bool mGameStoped;
     private Parameters mParameters;
-    private Ui mUi;
+    private UiSystem mUi;
 
     private Color mColor;
 
@@ -29,7 +29,7 @@ public class sphere : MonoBehaviour
 
     void init()
     {
-        mUi = GameObject.Find("Canvas").GetComponent<Ui>();
+        mUi = GameObject.Find("Canvas").GetComponent<UiSystem>();
         mParameters = GameObject.Find("MainObject").GetComponent<Parameters>();
         
         mHorizontalSpeed = mParameters.mHorizontalSpeed;
@@ -129,7 +129,7 @@ public class sphere : MonoBehaviour
         mViewPoint.position = mStartPoint.position;
         mNumberOfDestroyedRows = 0;
 
-        var blocks = GameObject.Find("MainObject").GetComponent<Blocks>();
+        var blocks = GameObject.Find("MainObject").GetComponent<Road>();
         blocks.CreateWall();
         
         mHorizontalSpeed = mParameters.mHorizontalSpeed;
@@ -164,7 +164,7 @@ public class sphere : MonoBehaviour
         {
             mSphereMovingDown = true;
             
-            var blocks = GameObject.Find("MainObject").GetComponent<Blocks>();
+            var blocks = GameObject.Find("MainObject").GetComponent<Road>();
             blocks.DestroyUpperRow();
             ++mNumberOfDestroyedRows;
 
