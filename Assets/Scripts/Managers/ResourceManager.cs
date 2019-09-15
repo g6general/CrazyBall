@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceManager : MonoBehaviour
+public class ResourceManager
 {
-    // Start is called before the first frame update
-    void Start()
+    public ResourceManager()
     {
-        
+        init();
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void init()
     {
-        
+        Debug.Log("ResourceManager initialization.");
     }
 }

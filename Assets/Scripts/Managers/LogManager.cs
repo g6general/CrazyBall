@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LogManager : MonoBehaviour
+public class LogManager
 {
-    // Start is called before the first frame update
-    void Start()
+    public LogManager()
     {
-        
+        init();
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void init()
     {
-        
+        Debug.Log("LogManager initialization.");
     }
 }

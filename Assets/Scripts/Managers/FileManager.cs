@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FileManager : MonoBehaviour
+public class FileManager
 {
-    // Start is called before the first frame update
-    void Start()
+    public FileManager()
     {
-        
+        init();
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void init()
     {
-        
+        Debug.Log("FileManager initialization.");
     }
 }
