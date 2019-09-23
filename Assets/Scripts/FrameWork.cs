@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,11 +14,6 @@ public class FrameWork : MonoBehaviour
     private Parameters mParameters;
     private GamePlay mGamePlay;
     
-    void Start()
-    {
-        init();
-    }
-
     void init()
     {
         mFileManager = new FileManager();
@@ -27,5 +23,16 @@ public class FrameWork : MonoBehaviour
         mSoundManager = new SoundManager();
         
         mParameters = GameObject.Find("MainObject").GetComponent<Parameters>();
+        mGamePlay = new GamePlay();
+    }
+    
+    void Start()
+    {
+        init();
+    }
+
+    void Update()
+    {
+        mGamePlay.Process();
     }
 }
