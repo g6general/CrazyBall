@@ -129,7 +129,7 @@ public class Ball : MonoBehaviour
         mViewPoint.position = mStartPoint.position;
         mNumberOfDestroyedRows = 0;
 
-        var blocks = GameObject.Find("MainObject").GetComponent<Road>();
+        var blocks = GameObject.Find("MainObject").GetComponent<Wall>();
         blocks.CreateWall();
         
         mHorizontalSpeed = mParameters.mHorizontalSpeed;
@@ -164,7 +164,7 @@ public class Ball : MonoBehaviour
         {
             mSphereMovingDown = true;
             
-            var blocks = GameObject.Find("MainObject").GetComponent<Road>();
+            var blocks = GameObject.Find("MainObject").GetComponent<Wall>();
             blocks.DestroyUpperRow();
             ++mNumberOfDestroyedRows;
 
