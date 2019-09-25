@@ -3,89 +3,62 @@ using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class Wall : MonoBehaviour
+public class Wall : RoadBase
 {
-    private float mBlockSizeX;
-    private float mBlockSizeY;
-    private float mBlockSizeZ;
-
-    private float mDeltaZ;
-
-    private int mBlocksInLength;
-    private int mBlocksInHeight;
-
-    private Color mRigidBlockColor;
-    private Color mSoftBlockColor;
-
-    private List<Position> mBarriers;
-    private List<List<GameObject>> mBlocks;
-
-    void Start()
+    void Start()    // temp
     {
-        var parameters = GameObject.Find("MainObject").GetComponent<Parameters>();
-        mBlockSizeX = parameters.mBlockSizeX;
-        mBlockSizeY = parameters.mBlockSizeY;
-        mBlockSizeZ = parameters.mBlockSizeZ;
-        mDeltaZ = parameters.mDeltaZ;
-        mBlocksInLength = parameters.getLength();
-        mBlocksInHeight = parameters.getHeight();
-        mBarriers = parameters.mBarriers;
-        mRigidBlockColor = parameters.mRigidBlockColor;
-        mSoftBlockColor = parameters.mSoftBlockColor;
+        Init();
+        Build();
+    }
+
+    public override void Init()
+    {
+        mParameters = GameObject.Find("MainObject").GetComponent<Parameters>();
         
-        mBlocks = new List<List<GameObject>>();
+        mRigidBlockPref = (GameObject)Resources.Load("Prefabs/rigid_block", typeof(GameObject));
+        mSoftBlockPref = (GameObject)Resources.Load("Prefabs/soft_block", typeof(GameObject));
 
-        CreateWall();
-    }
-
-    private void init()
-    {
-        for (var i = 0; i < mBlocksInHeight; ++i)
-        {
-            mBlocks.Add(new List<GameObject>(mBlocksInLength));
-        }
-    }
-
-    public void CreateWall()
-    {
-        var rigidBlockPref = (GameObject)Resources.Load("Prefabs/rigid_block", typeof(GameObject));
-        var softBlockPref = (GameObject)Resources.Load("Prefabs/soft_block", typeof(GameObject));
-
-        rigidBlockPref.transform.localScale = new Vector3(mBlockSizeX, mBlockSizeY, mBlockSizeZ);
-        softBlockPref.transform.localScale = new Vector3(mBlockSizeX, mBlockSizeY, mBlockSizeZ);
+        mRigidBlockPref.transform.localScale = new Vector3(mParameters.mBlockSizeX, mParameters.mBlockSizeY, mParameters.mBlockSizeZ);
+        mSoftBlockPref.transform.localScale = new Vector3(mParameters.mBlockSizeX, mParameters.mBlockSizeY, mParameters.mBlockSizeZ);
 
         var blockMat = (Material)Resources.Load("Materials/block", typeof(Material));
         var breakableMat = (Material)Resources.Load("Materials/breakable", typeof(Material));
 
-        blockMat.color = mRigidBlockColor;
-        breakableMat.color = mSoftBlockColor;
+        blockMat.color = mParameters.mRigidBlockColor;
+        breakableMat.color = mParameters.mSoftBlockColor;
 
-        rigidBlockPref.GetComponent<Renderer>().material = blockMat;
-        softBlockPref.GetComponent<Renderer>().material = breakableMat;
+        mRigidBlockPref.GetComponent<Renderer>().material = blockMat;
+        mSoftBlockPref.GetComponent<Renderer>().material = breakableMat;
+    }
+
+    public override void Build()
+    {
+        Destroy();
         
-        while (DestroyUpperRow());
-
-        for (var i = 0; i < mBlocksInHeight; ++i)
+        mBlocks = new List<List<GameObject>>();
+        for (var i = 0; i < mParameters.getHeight(); ++i)
         {
-            mBlocks.Add(new List<GameObject>(mBlocksInLength));
+            mBlocks.Add(new List<GameObject>(mParameters.getLength()));
         }
 
-        for (var i = 0; i < mBlocksInHeight; ++i)
+        for (var i = 0; i < mParameters.getHeight(); ++i)
         {
-            for (var j = 0; j < mBlocksInLength; ++j)
+            for (var j = 0; j < mParameters.getLength(); ++j)
             {
-                var vector = new Vector3(0, i * mBlockSizeY, j * mBlockSizeZ + mDeltaZ * (mBlocksInHeight - 1 - i));
+                var vector = new Vector3(0, i * mParameters.mBlockSizeY,
+                    j * mParameters.mBlockSizeZ + mParameters.mDeltaZ * (mParameters.getHeight() - 1 - i));
+
                 var pos = new Position(i, j);
 
-                if (mBarriers.Contains(pos))
+                if (mParameters.mBarriers.Contains(pos))
                 {
-                    var newObject = GameObject.Instantiate(rigidBlockPref, vector, Quaternion.identity);
+                    var newObject = GameObject.Instantiate(mRigidBlockPref, vector, Quaternion.identity);
                     newObject.name = "rigid_block";
                     mBlocks[i].Add(newObject);
                 }
                 else
                 {
-                    var newObject = GameObject.Instantiate(softBlockPref, vector, Quaternion.identity);
+                    var newObject = GameObject.Instantiate(mSoftBlockPref, vector, Quaternion.identity);
                     newObject.name = "soft_block";
                     mBlocks[i].Add(newObject);
                 }
@@ -93,9 +66,14 @@ public class Wall : MonoBehaviour
         }
     }
 
-    public bool DestroyUpperRow()
+    public override void Destroy()
     {
-        if (mBlocks.Count == 0)
+        while (DestroyUpperRow());
+    }
+
+    public override bool DestroyUpperRow()
+    {
+        if (mBlocks == null || mBlocks.Count == 0)
             return false;
 
         var lastIndex = mBlocks.Count - 1;
@@ -109,17 +87,5 @@ public class Wall : MonoBehaviour
         mBlocks.RemoveAt(lastIndex);
 
         return true;
-    }
-}
-
-public struct Position
-{
-    public int mVertical;
-    public int mHorizontal;
-
-    public Position(int vertical, int horizontal)
-    {
-        mVertical = vertical;
-        mHorizontal = horizontal;
     }
 }

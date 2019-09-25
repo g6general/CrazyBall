@@ -23,7 +23,7 @@ public class FrameWork : MonoBehaviour
         mSoundManager = new SoundManager();
         
         mParameters = GameObject.Find("MainObject").GetComponent<Parameters>();
-        mGamePlay = new GamePlay();
+        mGamePlay = new GamePlay();    // todo: callbacks
     }
     
     void Start()

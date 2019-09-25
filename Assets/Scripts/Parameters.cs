@@ -25,7 +25,7 @@ public class Parameters : MonoBehaviour
     public float mStartLongitudinalOffset;
     public float mAmplitude;
     
-    public List<Position> mBarriers;
+    public List<RoadBase.Position> mBarriers;
     
     void Awake()
     {
@@ -50,14 +50,14 @@ public class Parameters : MonoBehaviour
         mBlocksInHeight = tempBlockPositions.GetUpperBound(0) + 1;
         mBlocksInLength = tempBlockPositions.Length / mBlocksInHeight;
         
-        mBarriers = new List<Position>();
+        mBarriers = new List<RoadBase.Position>();
 
         for (var i = 0; i < mBlocksInHeight; i++)
         {
             for (var j = 0; j < mBlocksInLength; ++j)
             {
                 if (tempBlockPositions[i, j] == 1)
-                    mBarriers.Add(new Position(MirrorImage(i), j));
+                    mBarriers.Add(new RoadBase.Position(MirrorImage(i), j));
             }
         }
     }
