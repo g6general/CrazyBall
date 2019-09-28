@@ -4,9 +4,19 @@ using UnityEngine;
 
 public abstract class HeroBase : MonoBehaviour
 {
+    public enum eMoveType
+    {
+        FORWARD,
+        INPLACE,
+        FIRE
+    };
+
+    protected eMoveType mMoveType;
+    
+    protected Parameters mParameters;
+    
     public abstract void Init();
-    public abstract void MoveForward();
-    public abstract void MoveInPlace();
-    public abstract void Fire();
+    public abstract void Move();
     public abstract void Break();
+    public void SetMoveType(eMoveType type) { mMoveType = type; }
 }

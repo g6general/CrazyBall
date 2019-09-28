@@ -1,18 +1,38 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProfileSystem : MonoBehaviour
+public class ProfileSystem
 {
-    // Start is called before the first frame update
-    void Start()
+    private Save mSave;
+    private Settings mSettings;
+
+    public ProfileSystem()
     {
-        
+        // todo
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LoadProfile()
     {
-        
+        // todo
     }
+
+    public void UnloadProfile()
+    {
+        // todo
+    }
+    
+    public ref Save GetSave() { return ref mSave; }
+    public ref Settings GetSettings() { return ref mSettings; }
+}
+
+public struct Save
+{
+    // todo
+}
+
+public struct Settings
+{
+    // todo
 }

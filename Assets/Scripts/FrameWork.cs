@@ -25,7 +25,7 @@ public class FrameWork : MonoBehaviour
         mVibroManager = new VibroManager();
         
         mParameters = GameObject.Find("MainObject").GetComponent<Parameters>();
-        mGamePlay = new GamePlay();    // todo: callbacks
+        mGamePlay = new GamePlay();
     }
     
     void Start()

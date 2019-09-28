@@ -2,17 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Levels : MonoBehaviour
+public class LevelSystem
 {
-    // Start is called before the first frame update
-    void Start()
+    private bool mShuffled;
+    private bool mLooped;
+    
+    private uint mCurrentLevelNumber;
+    private List<Level> mLevels;
+
+    public LevelSystem(bool shuffled, bool looped)
     {
-        
+        mShuffled = shuffled;
+        mLooped = looped;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LoadLevels()
     {
-        
+        // todo
     }
+
+    public int GetNumberOfLevels()
+    {
+        if (mLooped)
+            return -1;
+
+        return mLevels.Count;
+    }
+
+    public int GetCurrentLevelNumber()
+    {
+        // todo
+        return 0;
+    }
+
+    public Level GetCurrentLevel()
+    {
+        // todo
+        return new Level();
+    }
+
+    public void LevelUp()
+    {
+        // todo
+    }
+
+}
+
+public struct Level
+{
+    // todo
 }
