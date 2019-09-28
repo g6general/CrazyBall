@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VibroManager : MonoBehaviour
+public class VibroManager
 {
     public VibroManager()
     {
