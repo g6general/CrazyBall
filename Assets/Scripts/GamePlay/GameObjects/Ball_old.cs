@@ -19,7 +19,7 @@ public class Ball_old : MonoBehaviour
 
     private bool mGameStoped;
     private Parameters mParameters;
-    private UiSystem mUi;
+    private UiSystem_old mUi;
 
     private Color mColor;
 
@@ -29,7 +29,7 @@ public class Ball_old : MonoBehaviour
 
     void init()
     {
-        mUi = GameObject.Find("Canvas").GetComponent<UiSystem>();
+        mUi = GameObject.Find("Canvas").GetComponent<UiSystem_old>();
         mParameters = GameObject.Find("MainObject").GetComponent<Parameters>();
         
         mHorizontalSpeed = mParameters.mHorizontalSpeed;

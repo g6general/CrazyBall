@@ -10,31 +10,44 @@ public class FrameWork : MonoBehaviour
     private NetManager mNetManager;
     private ResourceManager mResourceManager;
     private SoundManager mSoundManager;
-    private VibroManager mVibroManager;
+    private VibrationManager mVibrationManager;
 
-    private Parameters mParameters;
     private GamePlay mGamePlay;
     
-    void init()
+    void Init()
     {
         mFileManager = new FileManager();
         mLogManager = new LogManager();
         mNetManager = new NetManager();
         mResourceManager = new ResourceManager();
         mSoundManager = new SoundManager();
-        mVibroManager = new VibroManager();
+        mVibrationManager = new VibrationManager();
         
-        mParameters = GameObject.Find("MainObject").GetComponent<Parameters>();
-        mGamePlay = new GamePlay();
+        var parameters = GameObject.Find("MainObject").GetComponent<Parameters>();
+        mGamePlay = new GamePlay(parameters);
+        
+        // geme version
+        // game id
     }
-    
+
+    void Awake()
+    {
+        Init();
+        mGamePlay.BeforeBeginSession();
+    }
+
     void Start()
     {
-        init();
+        mGamePlay.BeginSession();
     }
 
     void Update()
     {
-        mGamePlay.Process();
+        mGamePlay.Session();
+    }
+
+    void OnApplicationQuit()
+    {
+        mGamePlay.EndSession();
     }
 }

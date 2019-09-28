@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VibroManager
+public class VibrationManager
 {
-    public VibroManager()
+    public VibrationManager()
     {
         init();
     }
     
     private void init()
     {
-        Debug.Log("VIbroManager initialization.");
+        Debug.Log("VibrationManager initialization.");
     }
 }

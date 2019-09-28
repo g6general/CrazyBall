@@ -1,18 +1,23 @@
-﻿using System.Collections;
+﻿#define CHEATS_ACTIVATED
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.WSA;
 
-public class Cheats : MonoBehaviour
+public class CheatsSystem
 {
-    // Start is called before the first frame update
-    void Start()
+    private bool mIsCheatsActivated;
+    
+    public CheatsSystem()
     {
-        
+#if CHEATS_ACTIVATED
+        mIsCheatsActivated = true;
+#else
+        mIsCheatsActivated = false;
+#endif
+        // todo
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
+    // todo
 }

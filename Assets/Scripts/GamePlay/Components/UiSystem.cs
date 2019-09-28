@@ -1,85 +1,57 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class UiSystem : MonoBehaviour
+public class UiSystem
 {
-    private RectTransform mProgressBar;
-    private float mSphereSpeedCoef;
-
-    private GameObject mButton;
-    private GameObject mTextFail;
-    private GameObject mTextWin;
-
-    void Start()
+    public enum ScreenMode
     {
-        mProgressBar = GameObject.Find("ProgressBarFilled").GetComponent<RectTransform>();
-        
-        var parameters = GameObject.Find("MainObject").GetComponent<Parameters>();
-        var levelLength = parameters.getLength() * parameters.mBlockSizeZ;
-        var sphereSpeed = parameters.mHorizontalSpeed;
-        
-        mSphereSpeedCoef = sphereSpeed / levelLength;
-
-        mButton = GameObject.Find("Button");
-        mButton.SetActive(false);
-
-        var b = mButton.GetComponent<Button>();
-        b.onClick.AddListener(OnButtonClicked);
-        
-        mTextFail = GameObject.Find("TextFail");
-        mTextFail.SetActive(false);
-        
-        mTextWin = GameObject.Find("TextWin");
-        mTextWin.SetActive(false);
+        MAIN_SCREEN,
+        SHOP_SCREEN,
+        AD_SCREEN,
+        WIN_SCREEN,
+        DEFEAT_SCREEN
     }
 
-    void Update()
+    private ScreenMode mScreenMode;
+
+    public UiSystem()
     {
-        var horizontalStep = mSphereSpeedCoef * Time.deltaTime;
-        mProgressBar.localScale = new Vector3(mProgressBar.localScale.x + horizontalStep, mProgressBar.localScale.y);
+        // todo
     }
 
-    public void ResetProgressBar()
+    public void ProgressStart()
     {
-        mProgressBar.localScale = new Vector3(0, mProgressBar.localScale.y);
+        // todo
     }
     
-    public void StartProgressBar()
+    public void ProgressStop()
     {
-        var parameters = GameObject.Find("MainObject").GetComponent<Parameters>();
-        var levelLength = parameters.getLength() * parameters.mBlockSizeZ;
-        var sphereSpeed = parameters.mHorizontalSpeed;
-        
-        mSphereSpeedCoef = sphereSpeed / levelLength;
-    }
-
-    public void StopProgressBar()
-    {
-        mSphereSpeedCoef = 0;
-    }
-
-    public void ActivateUi()
-    {
-        mButton.SetActive(true);
-        mTextFail.SetActive(true);
+        // todo
     }
     
-    public void DeactivateUi()
+    public void ProgressReset()
     {
-        mButton.SetActive(false);
-        mTextFail.SetActive(false);
-    }
-    
-    public void ActivateWinUi()
-    {
-        mTextWin.SetActive(true);
+        // todo
     }
 
-    private void OnButtonClicked()
+    public void ShowShopScreen(bool mode)
     {
-        var sphere = GameObject.Find("Sphere").GetComponent<Ball_old>();
-        sphere.RestartGame();
+        // todo
+    }
+
+    public void ShowAdScreen(bool mode)
+    {
+        // todo
+    }
+
+    public void ShowWinScreen(bool mode)
+    {
+        // todo
+    }
+    
+    public void ShowDefeatScreen(bool mode)
+    {
+        // todo
     }
 }
