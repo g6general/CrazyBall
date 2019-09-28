@@ -10,6 +10,7 @@ public class FrameWork : MonoBehaviour
     private NetManager mNetManager;
     private ResourceManager mResourceManager;
     private SoundManager mSoundManager;
+    private VibroManager mVibroManager;
 
     private Parameters mParameters;
     private GamePlay mGamePlay;
@@ -21,6 +22,7 @@ public class FrameWork : MonoBehaviour
         mNetManager = new NetManager();
         mResourceManager = new ResourceManager();
         mSoundManager = new SoundManager();
+        mVibroManager = new VibroManager();
         
         mParameters = GameObject.Find("MainObject").GetComponent<Parameters>();
         mGamePlay = new GamePlay();    // todo: callbacks
