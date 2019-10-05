@@ -6,6 +6,7 @@ using UnityEngine;
 public class FrameWork : MonoBehaviour
 {
     private FileManager mFileManager;
+    private TextManager mTextManager;
     private LogManager mLogManager;
     private NetManager mNetManager;
     private ResourceManager mResourceManager;
@@ -17,6 +18,7 @@ public class FrameWork : MonoBehaviour
     void Init()
     {
         mFileManager = new FileManager();
+        mTextManager = new TextManager();
         mLogManager = new LogManager();
         mNetManager = new NetManager();
         mResourceManager = new ResourceManager();
