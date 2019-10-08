@@ -8,7 +8,7 @@ public class Wall : RoadBase
     void Start()    // temp
     {
         Init();
-        Build();
+        Build(new Level());
     }
 
     public override void Init()
@@ -31,7 +31,7 @@ public class Wall : RoadBase
         mSoftBlockPref.GetComponent<Renderer>().material = breakableMat;
     }
 
-    public override void Build()
+    public override void Build(Level level)
     {
         Destroy();
         

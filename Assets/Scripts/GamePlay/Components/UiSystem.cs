@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class UiSystem
 {
-    public enum ScreenMode
+    public enum eMode
     {
-        MAIN_SCREEN,
+        INTRO_SCREEN,
+        BRIEFING_SCREEN,
+        GAME_SCREEN,
+        DEBRIEFING_SCREEN,
+        SETTINGS_SCREEN,
         SHOP_SCREEN,
-        AD_SCREEN,
-        WIN_SCREEN,
-        DEFEAT_SCREEN
+        AD_SCREEN
     }
 
-    private ScreenMode mScreenMode;
+    private eMode mScreenMode;
 
     public UiSystem()
     {
@@ -34,24 +36,9 @@ public class UiSystem
     {
         // todo
     }
-
-    public void ShowShopScreen(bool mode)
-    {
-        // todo
-    }
-
-    public void ShowAdScreen(bool mode)
-    {
-        // todo
-    }
-
-    public void ShowWinScreen(bool mode)
-    {
-        // todo
-    }
     
-    public void ShowDefeatScreen(bool mode)
+    public void SetScreen(eMode screen)
     {
-        // todo
+        mScreenMode = screen;
     }
 }

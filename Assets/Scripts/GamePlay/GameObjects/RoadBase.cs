@@ -13,7 +13,7 @@ public abstract class RoadBase : MonoBehaviour
     protected Parameters mParameters;
     
     public abstract void Init();
-    public abstract void Build();
+    public abstract void Build(Level level);
     public abstract void Destroy();
     public abstract bool DestroyUpperRow();
     

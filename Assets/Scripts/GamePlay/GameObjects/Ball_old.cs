@@ -130,7 +130,7 @@ public class Ball_old : MonoBehaviour
         mNumberOfDestroyedRows = 0;
 
         var blocks = GameObject.Find("MainObject").GetComponent<Wall>();
-        blocks.Build();
+        blocks.Build(new Level());
         
         mHorizontalSpeed = mParameters.mHorizontalSpeed;
         mVerticalSpeed = mParameters.mVerticalSpeed;

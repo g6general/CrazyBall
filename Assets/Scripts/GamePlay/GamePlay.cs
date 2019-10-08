@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GamePlay
+public class GamePlay : GameEventSubscriber
 {
     private ProfileSystem mProfile;
     private LevelSystem mLevels;
@@ -27,8 +27,13 @@ public class GamePlay
     
     public void BeforeBeginSession()
     {
+        mUi.SetScreen(UiSystem.eMode.INTRO_SCREEN);
+        
+        mLevels.testEvent += GameEventHandler;
+        
         mProfile.LoadProfile();
         mLevels.LoadLevels();
+        mLevels.SetLevelForStart(mProfile.GetSave().currentLevel);
         
         //mHero.Init();    //temp
         mRoad.Init();
@@ -36,12 +41,34 @@ public class GamePlay
 
     public void BeginSession()
     {
-        // todo
+        mUi.SetScreen(UiSystem.eMode.INTRO_SCREEN);
+        mCurrentEvent = GameEventsList.eType.GE_GAME_IS_LOADED;
     }
 
     public void Session()
     {
+        /*
+        if (mCurrentEvent == GameEventsList.eType.GE_GAME_IS_LOADED)
+        {
+            mUi.SetScreen(UiSystem.eMode.BRIEFING_SCREEN);
+            
+            var level = mLevels.GetCurrentLevel();
+            mRoad.Build(level);
+            
+            mHero.PlaceToStart();
+            mHero.SetMoveType(HeroBase.eMoveType.INPLACE);
+        }
+
+        if (mCurrentEvent == GameEventsList.eType.GE_BRIEFING_PLAY_BUTTON)
+        {
+            mUi.SetScreen(UiSystem.eMode.GAME_SCREEN);
+            mHero.SetMoveType(HeroBase.eMoveType.FORWARD);
+        }
+        
         // todo
+        
+        mHero.Move();
+        */
     }
     
     public void EndSession()

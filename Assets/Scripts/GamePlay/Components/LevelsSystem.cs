@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelSystem
+public class LevelSystem : GameEventSender
 {
     private bool mShuffled;
     private bool mLooped;
     
     private uint mCurrentLevelNumber;
     private List<Level> mLevels;
+    
+    //
+    public event GameEventHandlerDelegate testEvent;
+    //
 
     public LevelSystem(bool shuffled, bool looped)
     {
@@ -16,9 +20,19 @@ public class LevelSystem
         mLooped = looped;
     }
 
+    public void SetLevelForStart(int index)
+    {
+        // todo
+    }
+
     public void LoadLevels()
     {
         // todo
+        
+        // temp
+        if (testEvent != null)
+            testEvent(new GameEvent(GameEventsList.eType.GE_WIN));
+        // temp
     }
 
     public int GetNumberOfLevels()

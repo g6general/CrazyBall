@@ -15,6 +15,10 @@ public abstract class HeroBase : MonoBehaviour
     
     protected Parameters mParameters;
     
+    protected Transform mStartPoint;
+
+    public abstract void PlaceToStart();
+
     public abstract void Init();
     public abstract void Move();
     public abstract void Break();

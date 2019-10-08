@@ -29,6 +29,9 @@ public class ProfileSystem
 
 public struct Save
 {
+    public int currentLevel;
+
+
     // todo
 }
 

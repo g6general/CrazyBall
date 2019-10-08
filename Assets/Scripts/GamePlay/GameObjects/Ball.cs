@@ -6,7 +6,7 @@ public class Ball : HeroBase
 {
     public override void Init()
     {
-        Debug.Log("Init Ball!");
+        mStartPoint = GameObject.Find("StartPoint").GetComponent<Transform>();
     }
 
     public override void Move()
@@ -17,5 +17,10 @@ public class Ball : HeroBase
     public override void Break()
     {
         Debug.Log("Break Ball!");
+    }
+
+    public override void PlaceToStart()
+    {
+        // todo
     }
 }
