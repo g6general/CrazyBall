@@ -42,13 +42,12 @@ public class GamePlay : GameEventSubscriber
     public void BeginSession()
     {
         mUi.SetScreen(UiSystem.eMode.INTRO_SCREEN);
-        mCurrentEvent = GameEventsList.eType.GE_GAME_IS_LOADED;
+        SetEventSelf(GameEventsList.eType.GE_GAME_READY);
     }
 
     public void Session()
     {
-        /*
-        if (mCurrentEvent == GameEventsList.eType.GE_GAME_IS_LOADED)
+        if (IsCurrentEvent(GameEventsList.eType.GE_GAME_READY))
         {
             mUi.SetScreen(UiSystem.eMode.BRIEFING_SCREEN);
             
@@ -57,18 +56,94 @@ public class GamePlay : GameEventSubscriber
             
             mHero.PlaceToStart();
             mHero.SetMoveType(HeroBase.eMoveType.INPLACE);
+            
+            ResetEvent();
+        }
+        
+        if (IsCurrentEvent(GameEventsList.eType.GE_REMOVE_AD_BUTTON))
+        {
+            // purchase in store
+            // todo
+            
+            ResetEvent();
         }
 
-        if (mCurrentEvent == GameEventsList.eType.GE_BRIEFING_PLAY_BUTTON)
+        if (IsCurrentEvent(GameEventsList.eType.GE_SHOW_SHOP_BUTTON))
+        {
+            mUi.SetScreen(UiSystem.eMode.SHOP_SCREEN);
+            ResetEvent();
+        }
+
+        if (IsCurrentEvent(GameEventsList.eType.GE_HIDE_SHOP_BUTTON))
+        {
+            mUi.SetScreen(UiSystem.eMode.BRIEFING_SCREEN);
+            ResetEvent();
+        }
+
+        if (IsCurrentEvent(GameEventsList.eType.GE_SHOW_SETTINGS_BUTTON))
+        {
+            mUi.SetScreen(UiSystem.eMode.SETTINGS_SCREEN);
+            ResetEvent();
+        }
+
+        if (IsCurrentEvent(GameEventsList.eType.GE_HIDE_SETTINGS_BUTTON))
+        {
+            mUi.SetScreen(UiSystem.eMode.BRIEFING_SCREEN);
+            ResetEvent();
+        }
+
+        if (IsCurrentEvent(GameEventsList.eType.GE_PLAY_BUTTON))
         {
             mUi.SetScreen(UiSystem.eMode.GAME_SCREEN);
             mHero.SetMoveType(HeroBase.eMoveType.FORWARD);
+            ResetEvent();
         }
         
-        // todo
+        if (IsCurrentEvent(GameEventsList.eType.GE_TAP_DOWN_OCCURRED))
+        {
+            mHero.SetMoveType(HeroBase.eMoveType.FIRE);
+            ResetEvent();
+        }
         
+        if (IsCurrentEvent(GameEventsList.eType.GE_TAP_UP_OCCURRED))
+        {
+            mHero.SetMoveType(HeroBase.eMoveType.FORWARD);
+            ResetEvent();
+        }
+        
+        if (IsCurrentEvent(GameEventsList.eType.GE_COLLISION_OCCURRED))
+        {
+            mRoad.DestroyUpperRow();
+            ResetEvent();
+        }
+
+        if (IsCurrentEvent(GameEventsList.eType.GE_WIN))
+        {
+            mHero.SetMoveType(HeroBase.eMoveType.INPLACE);
+            mLevels.LevelUp();
+            mUi.SetScreen(UiSystem.eMode.DEBRIEFING_SCREEN);
+            ResetEvent();
+        }
+
+        if (IsCurrentEvent(GameEventsList.eType.GE_DEFEAT))
+        {
+            mHero.Break();
+            mUi.SetScreen(UiSystem.eMode.DEBRIEFING_SCREEN);
+            ResetEvent();
+        }
+
+        if (IsCurrentEvent(GameEventsList.eType.GE_SHOW_AD_BUTTON))
+        {
+            mUi.SetScreen(UiSystem.eMode.AD_SCREEN);
+            ResetEvent();
+        }
+
+        if (IsCurrentEvent(GameEventsList.eType.GE_HIDE_AD_BUTTON))
+        {
+            SetEventSelf(GameEventsList.eType.GE_GAME_READY);
+        }
+
         mHero.Move();
-        */
     }
     
     public void EndSession()
