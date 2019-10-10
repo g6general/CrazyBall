@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class RoadBase : MonoBehaviour
+public abstract class RoadBase : ObjectBase
 {
     protected List<List<GameObject>> mBlocks;
     
@@ -11,8 +11,7 @@ public abstract class RoadBase : MonoBehaviour
     protected GameObject mSoftBlockPref;
 
     protected Parameters mParameters;
-    
-    public abstract void Init();
+
     public abstract void Build(Level level);
     public abstract void Destroy();
     public abstract bool DestroyUpperRow();

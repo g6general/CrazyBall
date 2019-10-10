@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class HeroBase : MonoBehaviour
+public abstract class HeroBase : ObjectBase
 {
     public enum eMoveType
     {
         FORWARD,
         INPLACE,
-        FIRE
+        FIRE,
+        NO_MOVE
     };
 
     protected eMoveType mMoveType;
@@ -18,8 +19,6 @@ public abstract class HeroBase : MonoBehaviour
     protected Transform mStartPoint;
 
     public abstract void PlaceToStart();
-
-    public abstract void Init();
     public abstract void Move();
     public abstract void Break();
     public void SetMoveType(eMoveType type) { mMoveType = type; }

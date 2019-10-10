@@ -6,6 +6,7 @@ public class Ball : HeroBase
 {
     public override void Init()
     {
+        mMoveType = eMoveType.NO_MOVE;
         mStartPoint = GameObject.Find("StartPoint").GetComponent<Transform>();
     }
 
