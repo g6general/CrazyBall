@@ -9,16 +9,19 @@ public class UiSystem
         INTRO_SCREEN,
         BRIEFING_SCREEN,
         GAME_SCREEN,
-        DEBRIEFING_SCREEN,
+        DEBRIEFING_WIN_SCREEN,
+        DEBRIEFING_DEFEAT_SCREEN,
         SETTINGS_SCREEN,
         SHOP_SCREEN,
-        AD_SCREEN
+        AD_SCREEN,
+        NO_SCREEN
     }
 
     private eMode mScreenMode;
 
     public UiSystem()
     {
+        mScreenMode = eMode.NO_SCREEN;
         // todo
     }
 

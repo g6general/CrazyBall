@@ -50,7 +50,7 @@ public class Wall : RoadBase
 
                 var pos = new Position(i, j);
 
-                if (mParameters.mBarriers.Contains(pos))
+                if (level.mBarriers.Contains(pos))
                 {
                     var newObject = GameObject.Instantiate(mRigidBlockPref, vector, Quaternion.identity);
                     newObject.name = "rigid_block";

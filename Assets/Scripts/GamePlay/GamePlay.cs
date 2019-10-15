@@ -28,9 +28,11 @@ public class GamePlay : GameEventSubscriber
     
     public void BeforeBeginSession()
     {
-        mUi.SetScreen(UiSystem.eMode.INTRO_SCREEN);
+        //mUi.SetScreen(UiSystem.eMode.INTRO_SCREEN);
         
+        // temp
         mLevels.testEvent += GameEventHandler;
+        // temp
         
         mProfile.LoadProfile();
         mLevels.LoadLevels();
@@ -129,13 +131,13 @@ public class GamePlay : GameEventSubscriber
         {
             ((Ball)mGameObjects["Hero"]).SetMoveType(HeroBase.eMoveType.INPLACE);
             mLevels.LevelUp();
-            mUi.SetScreen(UiSystem.eMode.DEBRIEFING_SCREEN);
+            mUi.SetScreen(UiSystem.eMode.DEBRIEFING_WIN_SCREEN);
         }
 
         if (IsCurrentEvent(GameEventsList.eType.GE_DEFEAT))
         {
             ((Ball)mGameObjects["Hero"]).Break();
-            mUi.SetScreen(UiSystem.eMode.DEBRIEFING_SCREEN);
+            mUi.SetScreen(UiSystem.eMode.DEBRIEFING_DEFEAT_SCREEN);
         }
     }
     

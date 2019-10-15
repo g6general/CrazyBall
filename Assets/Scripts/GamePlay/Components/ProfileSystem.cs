@@ -11,6 +11,10 @@ public class ProfileSystem
     public ProfileSystem()
     {
         // todo
+
+        // temp
+        mSave.currentLevel = 0;
+        // temp
     }
 
     public void LoadProfile()
