@@ -106,7 +106,7 @@ public class GamePlay : GameEventSubscriber
         
         if (IsCurrentEvent(GameEventsList.eType.GE_SHOW_AD_BUTTON))
         {
-            mUi.SetScreen(UiSystem.eMode.AD_SCREEN);
+            mUi.SetScreen(UiSystem.eMode.ADS_SCREEN);
         }
     }
     
