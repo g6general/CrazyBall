@@ -36,8 +36,8 @@ public class LevelSystem : GameEventSender
         // todo
         
         // temp
-        if (testEvent != null)
-            testEvent(new GameEvent(GameEventsList.eType.GE_WIN));
+        //if (testEvent != null)
+        //    testEvent(new GameEvent(GameEventsList.eType.GE_WIN));
         // temp
         
         // temp

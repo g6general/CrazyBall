@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class GamePlay : GameEventSubscriber
@@ -28,12 +29,12 @@ public class GamePlay : GameEventSubscriber
     
     public void BeforeBeginSession()
     {
-        //mUi.SetScreen(UiSystem.eMode.INTRO_SCREEN);
+        mUi.SetScreen(UiSystem.eMode.INTRO_SCREEN);
         
-        // temp
+        //
         mLevels.testEvent += GameEventHandler;
-        // temp
-        
+        //
+
         mProfile.LoadProfile();
         mLevels.LoadLevels();
         mLevels.SetLevelForStart(mProfile.GetSave().currentLevel);
@@ -46,8 +47,8 @@ public class GamePlay : GameEventSubscriber
 
     public void BeginSession()
     {
-        mUi.SetScreen(UiSystem.eMode.INTRO_SCREEN);
-        //SetEventSelf(GameEventsList.eType.GE_GAME_READY);
+        Thread.Sleep(3000);
+        SetEventSelf(GameEventsList.eType.GE_GAME_READY);
     }
 
     public void Session()

@@ -17,6 +17,7 @@ public abstract class HeroBase : ObjectBase
     protected Parameters mParameters;
     
     protected Transform mStartPoint;
+    protected Transform mViewPoint;
 
     public abstract void PlaceToStart();
     public abstract void Move();

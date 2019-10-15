@@ -38,7 +38,8 @@ public class UiSystem
         mSettingsScreen = GameObject.Find("settings_screen").GetComponent<Canvas>();
         mShopScreen = GameObject.Find("shop_screen").GetComponent<Canvas>();
         mAdsScreen = GameObject.Find("ads_screen").GetComponent<Canvas>();
-        
+
+        HideAllScreens();
         mScreenMode = eMode.NO_SCREEN;
     }
 
