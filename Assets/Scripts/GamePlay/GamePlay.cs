@@ -28,10 +28,10 @@ public class GamePlay : GameEventSubscriber
             mDeferredEvent = GameEventsList.eType.GE_NO;
         }
 
-        public void Set(uint numberOfLoops, GameEventsList.eType eventToSet)
+        public void Set(uint numberOfLoops, GameEventsList.eType deferredEvent)
         {
             mDelay = numberOfLoops;
-            mDeferredEvent = eventToSet;
+            mDeferredEvent = deferredEvent;
 
             mParent.SetEventSelf(GameEventsList.eType.GE_GAME_WAITING);
         }
@@ -73,9 +73,24 @@ public class GamePlay : GameEventSubscriber
     
     public void BeforeBeginSession()
     {
-        //
-        mLevels.testEvent += GameEventHandler;
-        //
+        mUi.mBriefingScreen.playButtonPressed += GameEventHandler;
+        mUi.mBriefingScreen.shopButtonPressed += GameEventHandler;
+        mUi.mBriefingScreen.settingsButtonPressed += GameEventHandler;
+        mUi.mBriefingScreen.noAdsButtonPressed += GameEventHandler;
+        
+        mUi.mShopScreen.exitButtonPressed += GameEventHandler;
+        mUi.mShopScreen.purchase1ButtonPressed += GameEventHandler;
+        mUi.mShopScreen.purchase2ButtonPressed += GameEventHandler;
+        mUi.mShopScreen.purchase3ButtonPressed += GameEventHandler;
+        mUi.mShopScreen.noAdsButtonPressed += GameEventHandler;
+        mUi.mShopScreen.showAdsButtonPressed += GameEventHandler;
+        
+        mUi.mSettingsScreen.exitButtonPressed += GameEventHandler;
+        mUi.mSettingsScreen.soundButtonPressed += GameEventHandler;
+        mUi.mSettingsScreen.vibroButtonPressed += GameEventHandler;
+        
+        mUi.mDebriefingWinScreen.nextButtonPressed += GameEventHandler;
+        mUi.mDebriefingDefeatScreen.restartButtonPressed += GameEventHandler;
     }
 
     public void BeginSession()
@@ -126,7 +141,8 @@ public class GamePlay : GameEventSubscriber
         
         if (IsCurrentEvent(GameEventsList.eType.GE_REMOVE_AD_BUTTON))
         {
-            // purchase in store
+            Debug.Log("Purchase: remove ads");
+
             // todo
         }
 
@@ -150,15 +166,56 @@ public class GamePlay : GameEventSubscriber
             mUi.SetScreen(UiSystem.eMode.BRIEFING_SCREEN);
         }
 
-        if (IsCurrentEvent(GameEventsList.eType.GE_PLAY_BUTTON))
+        if (IsCurrentEvent(GameEventsList.eType.GE_START_GAME))
         {
             mUi.SetScreen(UiSystem.eMode.GAME_SCREEN);
             ((Ball)mGameObjects["Hero"]).SetMoveType(HeroBase.eMoveType.FORWARD);
+            
+            // temp
+            mTimer.Set(100, GameEventsList.eType.GE_WIN);
+            //mTimer.Set(100, GameEventsList.eType.GE_DEFEAT);
+            // temp
         }
         
         if (IsCurrentEvent(GameEventsList.eType.GE_SHOW_AD_BUTTON))
         {
             mUi.SetScreen(UiSystem.eMode.ADS_SCREEN);
+            mTimer.Set(100, GameEventsList.eType.GE_GAME_READY);
+        }
+        
+        if (IsCurrentEvent(GameEventsList.eType.GE_PURCHASE_1_BUTTON))
+        {
+            Debug.Log("Purchase: shop purchase 1");
+
+            // todo
+        }
+        
+        if (IsCurrentEvent(GameEventsList.eType.GE_PURCHASE_2_BUTTON))
+        {
+            Debug.Log("Purchase: shop purchase 2");
+
+            // todo
+        }
+        
+        if (IsCurrentEvent(GameEventsList.eType.GE_PURCHASE_3_BUTTON))
+        {
+            Debug.Log("Purchase: shop purchase 3");
+
+            // todo
+        }
+        
+        if (IsCurrentEvent(GameEventsList.eType.GE_SOUND_BUTTON))
+        {
+            Debug.Log("UI: sound button");
+
+            // todo
+        }
+        
+        if (IsCurrentEvent(GameEventsList.eType.GE_VIBRO_BUTTON))
+        {
+            Debug.Log("UI: vibro button");
+
+            // todo
         }
     }
     

@@ -9,10 +9,6 @@ public class LevelSystem : GameEventSender
     
     private int mCurrentLevelNumber;
     private List<Level> mLevels;
-    
-    // temp
-    public event GameEventHandlerDelegate testEvent;
-    // temp
 
     public LevelSystem(bool shuffled, bool looped)
     {
@@ -34,12 +30,7 @@ public class LevelSystem : GameEventSender
     public void LoadLevels()
     {
         // todo
-        
-        // temp
-        //if (testEvent != null)
-        //    testEvent(new GameEvent(GameEventsList.eType.GE_WIN));
-        // temp
-        
+
         // temp
         var firstLevel = new Level();
         firstLevel.mBarriers = new List<RoadBase.Position>();

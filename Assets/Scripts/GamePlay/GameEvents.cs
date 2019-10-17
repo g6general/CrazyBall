@@ -12,6 +12,8 @@ public static class GameEventsList
         GE_TAP_DOWN_OCCURRED,
         GE_TAP_UP_OCCURRED,
         GE_COLLISION_OCCURRED,
+        GE_SOUND_BUTTON,
+        GE_VIBRO_BUTTON,
         
         // levels
         GE_LEVEL_UP,
@@ -20,6 +22,7 @@ public static class GameEventsList
         GE_GAME_LOADING,
         GE_GAME_WAITING,
         GE_GAME_READY,
+        GE_START_GAME,
         GE_START_LEVEL_BUTTON,
         GE_NEXT_LEVEL_BUTTON,
         GE_CONTINUE_GAME_BUTTON,
@@ -35,8 +38,7 @@ public static class GameEventsList
         GE_HIDE_SHOP_BUTTON,
         GE_SHOW_SETTINGS_BUTTON,
         GE_HIDE_SETTINGS_BUTTON,
-        GE_PLAY_BUTTON,
-        
+
         // cheats
         GE_SHOW_ALL_CHEAT_BUTTON,
         GE_REMOVE_ALL_CHEAT_BUTTON,
