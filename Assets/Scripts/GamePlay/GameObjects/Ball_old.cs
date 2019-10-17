@@ -29,6 +29,7 @@ public class Ball_old : MonoBehaviour
 
     void init()
     {
+        /*
         mUi = GameObject.Find("Canvas").GetComponent<UiSystem_old>();
         mParameters = GameObject.Find("MainObject").GetComponent<Parameters>();
         
@@ -55,15 +56,17 @@ public class Ball_old : MonoBehaviour
 
         mNumberOfDestroyedRows = 0;
         mGameStoped = false;
+        */
     }
 
     private float GetCurrentHeight()
     {
-        return (mParameters.getHeight() - mNumberOfDestroyedRows - 0.5f) * mParameters.mBlockSizeY;
+        return 0f; //(mParameters.getHeight() - mNumberOfDestroyedRows - 0.5f) * mParameters.mBlockSizeY;
     }
 
     void Start()
     {
+        /*
         init();
         
         transform.localScale = new Vector3(mScale, mScale, mScale);
@@ -71,10 +74,12 @@ public class Ball_old : MonoBehaviour
 
         mViewPoint.position = mStartPoint.position;
         mDirection = Vector3.up;
+        */
     }
     
     void Update()
     {
+        /*
         if (transform.position.y <= mViewPoint.position.y - mAmplitude / 2)    //BottomY
             mDirection = Vector3.up;
 
@@ -122,6 +127,7 @@ public class Ball_old : MonoBehaviour
             
             mUi.ActivateWinUi();
         }
+        */
     }
 
     public void RestartGame()

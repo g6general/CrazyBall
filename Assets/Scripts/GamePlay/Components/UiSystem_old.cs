@@ -14,6 +14,7 @@ public class UiSystem_old : MonoBehaviour
 
     void Start()
     {
+        /*
         mProgressBar = GameObject.Find("ProgressBarFilled").GetComponent<RectTransform>();
         
         var parameters = GameObject.Find("MainObject").GetComponent<Parameters>();
@@ -33,12 +34,13 @@ public class UiSystem_old : MonoBehaviour
         
         mTextWin = GameObject.Find("TextWin");
         mTextWin.SetActive(false);
+        */
     }
 
     void Update()
     {
-        var horizontalStep = mSphereSpeedCoef * Time.deltaTime;
-        mProgressBar.localScale = new Vector3(mProgressBar.localScale.x + horizontalStep, mProgressBar.localScale.y);
+        //var horizontalStep = mSphereSpeedCoef * Time.deltaTime;
+        //mProgressBar.localScale = new Vector3(mProgressBar.localScale.x + horizontalStep, mProgressBar.localScale.y);
     }
 
     public void ResetProgressBar()
@@ -48,11 +50,13 @@ public class UiSystem_old : MonoBehaviour
     
     public void StartProgressBar()
     {
+        /*
         var parameters = GameObject.Find("MainObject").GetComponent<Parameters>();
         var levelLength = parameters.getLength() * parameters.mBlockSizeZ;
         var sphereSpeed = parameters.mHorizontalSpeed;
         
         mSphereSpeedCoef = sphereSpeed / levelLength;
+        */
     }
 
     public void StopProgressBar()

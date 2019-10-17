@@ -13,6 +13,48 @@ public class GamePlay : GameEventSubscriber
     private Parameters mParameters;
     private Dictionary<string, ObjectBase> mGameObjects;
 
+    private struct Timer
+    {
+        public GamePlay mParent;
+
+        public uint mDelay;
+        public GameEventsList.eType mDeferredEvent;
+
+        public Timer(GamePlay parent)
+        {
+            mParent = parent;
+
+            mDelay = 0;
+            mDeferredEvent = GameEventsList.eType.GE_NO;
+        }
+
+        public void Set(uint numberOfLoops, GameEventsList.eType eventToSet)
+        {
+            mDelay = numberOfLoops;
+            mDeferredEvent = eventToSet;
+
+            mParent.SetEventSelf(GameEventsList.eType.GE_GAME_WAITING);
+        }
+
+        public void Reset()
+        {
+            mParent.SetEventSelf(mDeferredEvent);
+
+            mDelay = 0;
+            mDeferredEvent = GameEventsList.eType.GE_NO;
+        }
+
+        public void Check()
+        {
+            --mDelay;
+
+            if (mDelay <= 0)
+                Reset();
+        }
+    }
+
+    private Timer mTimer;
+
     public GamePlay(Parameters parameters)
     {
         mProfile = new ProfileSystem();
@@ -25,43 +67,52 @@ public class GamePlay : GameEventSubscriber
         mGameObjects = new Dictionary<string, ObjectBase>();
         mGameObjects.Add("Hero", GameObject.Find("Sphere").GetComponent<Ball>());
         mGameObjects.Add("Road", GameObject.Find("MainObject").GetComponent<Wall>());
+
+        mTimer = new Timer(this);
     }
     
     public void BeforeBeginSession()
     {
-        mUi.SetScreen(UiSystem.eMode.INTRO_SCREEN);
-        
         //
         mLevels.testEvent += GameEventHandler;
         //
-
-        mProfile.LoadProfile();
-        mLevels.LoadLevels();
-        mLevels.SetLevelForStart(mProfile.GetSave().currentLevel);
-
-        foreach (var objectBase in mGameObjects)
-        {
-            objectBase.Value.Init();
-        }
     }
 
     public void BeginSession()
     {
-        Thread.Sleep(3000);
-        SetEventSelf(GameEventsList.eType.GE_GAME_READY);
+        SetEventSelf(GameEventsList.eType.GE_GAME_LOADING);
     }
 
     public void Session()
     {
+        CheckTimer();
+
         CheckUiEvents();
         CheckGameEvents();
 
         ((Ball)mGameObjects["Hero"]).Move();
+
         ResetEvent();
     }
 
     private void CheckUiEvents()
     {
+        if (IsCurrentEvent(GameEventsList.eType.GE_GAME_LOADING))
+        {
+            mUi.SetScreen(UiSystem.eMode.INTRO_SCREEN);
+
+            mProfile.LoadProfile();
+            mLevels.LoadLevels();
+            mLevels.SetLevelForStart(mProfile.GetSave().currentLevel);
+
+            foreach (var objectBase in mGameObjects)
+            {
+                objectBase.Value.Init();
+            }
+
+            mTimer.Set(100, GameEventsList.eType.GE_GAME_READY);
+        }
+        
         if (IsCurrentEvent(GameEventsList.eType.GE_GAME_READY))
         {
             mUi.SetScreen(UiSystem.eMode.BRIEFING_SCREEN);
@@ -139,6 +190,14 @@ public class GamePlay : GameEventSubscriber
         {
             ((Ball)mGameObjects["Hero"]).Break();
             mUi.SetScreen(UiSystem.eMode.DEBRIEFING_DEFEAT_SCREEN);
+        }
+    }
+
+    private void CheckTimer()
+    {
+        if (IsCurrentEvent(GameEventsList.eType.GE_GAME_WAITING))
+        {
+            mTimer.Check();
         }
     }
     

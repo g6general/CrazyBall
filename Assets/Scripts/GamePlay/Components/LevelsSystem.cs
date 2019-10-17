@@ -43,7 +43,6 @@ public class LevelSystem : GameEventSender
         // temp
         var firstLevel = new Level();
         firstLevel.mBarriers = new List<RoadBase.Position>();
-        mLevels.Add(firstLevel);
 
         uint[,] tempBlockPositions = {
             { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
@@ -63,17 +62,19 @@ public class LevelSystem : GameEventSender
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
         };
 
-        var height = tempBlockPositions.GetUpperBound(0) + 1;
-        var length = tempBlockPositions.Length / height;
+        firstLevel.mBlocksInHeight = tempBlockPositions.GetUpperBound(0) + 1;
+        firstLevel.mBlocksInLength = tempBlockPositions.Length / firstLevel.mBlocksInHeight;
 
-        for (var i = 0; i < height; i++)
+        for (var i = 0; i < firstLevel.mBlocksInHeight; i++)
         {
-            for (var j = 0; j < length; ++j)
+            for (var j = 0; j < firstLevel.mBlocksInLength; ++j)
             {
                 if (tempBlockPositions[i, j] == 1)
-                    mLevels[0].mBarriers.Add(new RoadBase.Position(height - 1 - i, j));
+                    firstLevel.mBarriers.Add(new RoadBase.Position(firstLevel.mBlocksInHeight - 1 - i, j));
             }
         }
+        
+        mLevels.Add(firstLevel);
         // temp
     }
 
@@ -114,4 +115,7 @@ public struct Level
     // todo
     
     public List<RoadBase.Position> mBarriers;
+    
+    public int mBlocksInLength;
+    public int mBlocksInHeight;
 }

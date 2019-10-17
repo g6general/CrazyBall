@@ -17,6 +17,8 @@ public static class GameEventsList
         GE_LEVEL_UP,
 
         // ui
+        GE_GAME_LOADING,
+        GE_GAME_WAITING,
         GE_GAME_READY,
         GE_START_LEVEL_BUTTON,
         GE_NEXT_LEVEL_BUTTON,
@@ -89,6 +91,7 @@ public class GameEventSubscriber
     
     protected void ResetEvent()
     {
-        mCurrentEvent = GameEventsList.eType.GE_NO;
+        if (!IsCurrentEvent(GameEventsList.eType.GE_GAME_WAITING))
+            mCurrentEvent = GameEventsList.eType.GE_NO;
     }
 }

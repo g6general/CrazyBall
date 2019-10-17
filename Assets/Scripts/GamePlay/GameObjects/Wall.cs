@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class Wall : RoadBase
 {
+    /*
     void Start()    // temp
     {
         Init();
         Build(new Level());
     }
+    */
 
     public override void Init()
     {
@@ -36,17 +38,17 @@ public class Wall : RoadBase
         Destroy();
         
         mBlocks = new List<List<GameObject>>();
-        for (var i = 0; i < mParameters.getHeight(); ++i)
+        for (var i = 0; i < level.mBlocksInHeight; ++i)
         {
-            mBlocks.Add(new List<GameObject>(mParameters.getLength()));
+            mBlocks.Add(new List<GameObject>(level.mBlocksInLength));
         }
 
-        for (var i = 0; i < mParameters.getHeight(); ++i)
+        for (var i = 0; i < level.mBlocksInHeight; ++i)
         {
-            for (var j = 0; j < mParameters.getLength(); ++j)
+            for (var j = 0; j < level.mBlocksInLength; ++j)
             {
                 var vector = new Vector3(0, i * mParameters.mBlockSizeY,
-                    j * mParameters.mBlockSizeZ + mParameters.mDeltaZ * (mParameters.getHeight() - 1 - i));
+                    j * mParameters.mBlockSizeZ + mParameters.mDeltaZ * (level.mBlocksInHeight - 1 - i));
 
                 var pos = new Position(i, j);
 

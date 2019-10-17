@@ -30,7 +30,7 @@ public class Ball : HeroBase
 
     public override void Move()
     {
-        Debug.Log("Move Ball!");
+        //Debug.Log("Move Ball!");
     }
     
     public override void Break()

@@ -10,8 +10,6 @@ public class Parameters : MonoBehaviour
     public float mBlockSizeZ;
 
     public float mDeltaZ;
-    private int mBlocksInLength;
-    private int mBlocksInHeight;
 
     public Color mSoftBlockColor;
     public Color mRigidBlockColor;
@@ -24,8 +22,5 @@ public class Parameters : MonoBehaviour
     public float mDestroySpeed;
     public float mStartLongitudinalOffset;
     public float mAmplitude;
-
-    public int getLength() { return 0/*mBlocksInLength*/; }
-    public int getHeight() { return 0/*mBlocksInHeight*/; }
 }
 
