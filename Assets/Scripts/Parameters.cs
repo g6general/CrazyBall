@@ -10,8 +10,6 @@ public class Parameters : MonoBehaviour
     public float mBlockSizeZ;
 
     public float mDeltaZ;
-    private int mBlocksInLength;
-    private int mBlocksInHeight;
 
     public Color mSoftBlockColor;
     public Color mRigidBlockColor;
@@ -24,51 +22,5 @@ public class Parameters : MonoBehaviour
     public float mDestroySpeed;
     public float mStartLongitudinalOffset;
     public float mAmplitude;
-    
-    public List<Position> mBarriers;
-    
-    void Awake()
-    {
-        uint[,] tempBlockPositions = {
-            { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-        };
-
-        mBlocksInHeight = tempBlockPositions.GetUpperBound(0) + 1;
-        mBlocksInLength = tempBlockPositions.Length / mBlocksInHeight;
-        
-        mBarriers = new List<Position>();
-
-        for (var i = 0; i < mBlocksInHeight; i++)
-        {
-            for (var j = 0; j < mBlocksInLength; ++j)
-            {
-                if (tempBlockPositions[i, j] == 1)
-                    mBarriers.Add(new Position(MirrorImage(i), j));
-            }
-        }
-    }
-
-    private int MirrorImage(int index)
-    {
-        var lastIndex = mBlocksInHeight - 1;
-        return lastIndex - index;
-    }
-
-    public int getLength() { return mBlocksInLength; }
-    public int getHeight() { return mBlocksInHeight; }
 }
 
