@@ -5,15 +5,7 @@ using UnityEngine;
 
 public class Wall : RoadBase
 {
-    /*
-    void Start()    // temp
-    {
-        Init();
-        Build(new Level());
-    }
-    */
-
-    public override void Init()
+    public override void Init(GamePlay.GameData gameData)
     {
         mParameters = GameObject.Find("MainObject").GetComponent<Parameters>();
         
@@ -31,6 +23,10 @@ public class Wall : RoadBase
 
         mRigidBlockPref.GetComponent<Renderer>().material = blockMat;
         mSoftBlockPref.GetComponent<Renderer>().material = breakableMat;
+
+        mCurrentBlocksInHeight = 0;
+        
+        mGameData = gameData;
     }
 
     public override void Build(Level level)
@@ -66,6 +62,25 @@ public class Wall : RoadBase
                 }
             }
         }
+
+        mCurrentBlocksInHeight = level.mBlocksInHeight;
+        mBlocksInHeight = level.mBlocksInHeight;
+        mBlocksInLength = level.mBlocksInLength;
+    }
+
+    public float CurrentHeight()
+    {
+        return mCurrentBlocksInHeight;
+    }
+
+    public float Height()
+    {
+        return mBlocksInHeight;
+    }
+    
+    public float Length()
+    {
+        return mBlocksInLength;
     }
 
     public override void Destroy()
@@ -88,6 +103,12 @@ public class Wall : RoadBase
 
         mBlocks.RemoveAt(lastIndex);
 
+        --mCurrentBlocksInHeight;
+
         return true;
+    }
+    
+    public override void UpdateObject()
+    {
     }
 }

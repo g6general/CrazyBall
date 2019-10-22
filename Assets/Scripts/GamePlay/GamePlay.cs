@@ -12,6 +12,10 @@ public class GamePlay : GameEventSubscriber
 
     private Parameters mParameters;
     private Dictionary<string, ObjectBase> mGameObjects;
+    private bool mGameProcess;
+    
+    private Timer mTimer;
+    public GameData mGameData;
 
     private struct Timer
     {
@@ -53,7 +57,12 @@ public class GamePlay : GameEventSubscriber
         }
     }
 
-    private Timer mTimer;
+    public struct GameData
+    {
+        public float currentWallHeight;
+        public float initialWallHeight;
+        public float initialWallLength;
+    }
 
     public GamePlay(Parameters parameters)
     {
@@ -63,6 +72,7 @@ public class GamePlay : GameEventSubscriber
         mUi = new UiSystem();
         
         mParameters = parameters;
+        mGameProcess = false;
 
         mGameObjects = new Dictionary<string, ObjectBase>();
         mGameObjects.Add("Hero", GameObject.Find("Sphere").GetComponent<Ball>());
@@ -91,6 +101,12 @@ public class GamePlay : GameEventSubscriber
         
         mUi.mDebriefingWinScreen.nextButtonPressed += GameEventHandler;
         mUi.mDebriefingDefeatScreen.restartButtonPressed += GameEventHandler;
+
+        ((Ball) mGameObjects["Hero"]).tapUpEvent += GameEventHandler;
+        ((Ball) mGameObjects["Hero"]).tapDownEvent += GameEventHandler;
+        ((Ball) mGameObjects["Hero"]).collisionEvent += GameEventHandler;
+        ((Ball) mGameObjects["Hero"]).defeatEvent += GameEventHandler;
+        ((Ball) mGameObjects["Hero"]).winEvent += GameEventHandler;
     }
 
     public void BeginSession()
@@ -102,12 +118,40 @@ public class GamePlay : GameEventSubscriber
     {
         CheckTimer();
 
+        if (mGameProcess)
+        {
+            UpdateGameObjects();
+            CheckGameEvents();
+        }
+        
+        UpdateGameData();
         CheckUiEvents();
-        CheckGameEvents();
 
         ((Ball)mGameObjects["Hero"]).Move();
 
         ResetEvent();
+    }
+
+    private void UpdateGameData()
+    {
+        mGameData.currentWallHeight = ((Wall) mGameObjects["Road"]).CurrentHeight();
+        mGameData.initialWallHeight = ((Wall) mGameObjects["Road"]).Height();
+        mGameData.initialWallLength = ((Wall) mGameObjects["Road"]).Length();
+        
+        foreach (var objectBase in mGameObjects)
+        {
+            objectBase.Value.UpdateGameData(mGameData);
+        }
+    }
+
+    private void UpdateGameObjects()
+    {
+        foreach (var objectBase in mGameObjects)
+        {
+            objectBase.Value.UpdateObject();
+        }
+        
+        mUi.ProgressProcess();
     }
 
     private void CheckUiEvents()
@@ -122,7 +166,7 @@ public class GamePlay : GameEventSubscriber
 
             foreach (var objectBase in mGameObjects)
             {
-                objectBase.Value.Init();
+                objectBase.Value.Init(mGameData);
             }
 
             mTimer.Set(100, GameEventsList.eType.GE_GAME_READY);
@@ -131,11 +175,12 @@ public class GamePlay : GameEventSubscriber
         if (IsCurrentEvent(GameEventsList.eType.GE_GAME_READY))
         {
             mUi.SetScreen(UiSystem.eMode.BRIEFING_SCREEN);
+            mUi.ProgressReset();
             
             var level = mLevels.GetCurrentLevel();
             ((Wall)mGameObjects["Road"]).Build(level);
             
-            ((Ball)mGameObjects["Hero"]).PlaceToStart();
+            ((Ball)mGameObjects["Hero"]).PlaceToStart(level);
             ((Ball)mGameObjects["Hero"]).SetMoveType(HeroBase.eMoveType.INPLACE);
         }
         
@@ -169,12 +214,9 @@ public class GamePlay : GameEventSubscriber
         if (IsCurrentEvent(GameEventsList.eType.GE_START_GAME))
         {
             mUi.SetScreen(UiSystem.eMode.GAME_SCREEN);
+            mUi.ProgressStart(mParameters.mHorizontalSpeed, mGameData.initialWallLength * mParameters.mBlockSizeZ);
             ((Ball)mGameObjects["Hero"]).SetMoveType(HeroBase.eMoveType.FORWARD);
-            
-            // temp
-            mTimer.Set(100, GameEventsList.eType.GE_WIN);
-            //mTimer.Set(100, GameEventsList.eType.GE_DEFEAT);
-            // temp
+            mGameProcess = true;
         }
         
         if (IsCurrentEvent(GameEventsList.eType.GE_SHOW_AD_BUTTON))
@@ -234,6 +276,7 @@ public class GamePlay : GameEventSubscriber
         if (IsCurrentEvent(GameEventsList.eType.GE_COLLISION_OCCURRED))
         {
             ((Wall)mGameObjects["Road"]).DestroyUpperRow();
+            Handheld.Vibrate();
         }
 
         if (IsCurrentEvent(GameEventsList.eType.GE_WIN))
@@ -241,12 +284,16 @@ public class GamePlay : GameEventSubscriber
             ((Ball)mGameObjects["Hero"]).SetMoveType(HeroBase.eMoveType.INPLACE);
             mLevels.LevelUp();
             mUi.SetScreen(UiSystem.eMode.DEBRIEFING_WIN_SCREEN);
+            mUi.ProgressStop();
+            mGameProcess = false;
         }
 
         if (IsCurrentEvent(GameEventsList.eType.GE_DEFEAT))
         {
             ((Ball)mGameObjects["Hero"]).Break();
             mUi.SetScreen(UiSystem.eMode.DEBRIEFING_DEFEAT_SCREEN);
+            mUi.ProgressStop();
+            mGameProcess = false;
         }
     }
 

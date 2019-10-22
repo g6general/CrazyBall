@@ -289,12 +289,12 @@ MonoBehaviour:
   mSoftBlockColor: {r: 0, g: 0.8113208, b: 0.11774479, a: 0}
   mRigidBlockColor: {r: 0.7830189, g: 0.31985584, b: 0.0110804355, a: 0}
   mSphereColor: {r: 0.72312284, g: 0.078497685, b: 0.7924528, a: 0}
-  mSphereScale: 4
+  mSphereScale: 2
   mHorizontalSpeed: 15
-  mVerticalSpeed: 40
+  mVerticalSpeed: 30
   mSlowDownCoef: 1.05
   mDestroySpeed: 1
-  mStartLongitudinalOffset: 5
+  mStartLongitudinalOffset: -2
   mAmplitude: 5
 --- !u!114 &87680928
 MonoBehaviour:
@@ -2385,7 +2385,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919123276}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalPosition: {x: 0, y: 48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 87680926}
@@ -2468,7 +2468,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: -0.258819, z: 0, w: 0.9659259}
-  m_LocalPosition: {x: 10, y: 0, z: -15}
+  m_LocalPosition: {x: 7, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1938697831}
@@ -5197,7 +5197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1938697830}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalPosition: {x: 0, y: 48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2141595843}
@@ -5512,6 +5512,22 @@ PrefabInstance:
       propertyPath: mViewPoint
       value: 
       objectReference: {fileID: 1938697831}
+    - target: {fileID: 5169956402946657074, guid: cb4545e890da94840b0b352276bd2b30,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 23a09c38ca0dd4563a2870a583c40150,
+        type: 2}
+    - target: {fileID: 5169956402946657073, guid: cb4545e890da94840b0b352276bd2b30,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5169956402946657073, guid: cb4545e890da94840b0b352276bd2b30,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5169956402946657086, guid: cb4545e890da94840b0b352276bd2b30, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cb4545e890da94840b0b352276bd2b30, type: 3}

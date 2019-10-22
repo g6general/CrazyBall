@@ -19,7 +19,7 @@ public abstract class HeroBase : ObjectBase
     protected Transform mStartPoint;
     protected Transform mViewPoint;
 
-    public abstract void PlaceToStart();
+    public abstract void PlaceToStart(Level level);
     public abstract void Move();
     public abstract void Break();
     public void SetMoveType(eMoveType type) { mMoveType = type; }

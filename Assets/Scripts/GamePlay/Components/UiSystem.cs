@@ -30,6 +30,9 @@ public class UiSystem : GameEventSender
     public DebriefingWinScreen mDebriefingWinScreen;
     public DebriefingDefeatScreen mDebriefingDefeatScreen;
 
+    private RectTransform mProgressBar;
+    private float mSphereSpeedCoef;
+
     public UiSystem()
     {
         mBriefingScreen = new BriefingScreen();
@@ -43,21 +46,29 @@ public class UiSystem : GameEventSender
         
         HideAllScreens();
         mScreenMode = eMode.NO_SCREEN;
+        
+        mProgressBar = GameObject.Find("FilledZone").GetComponent<RectTransform>();
     }
 
-    public void ProgressStart()
+    public void ProgressStart(float sphereSpeed, float levelLength)
     {
-        // todo
+        mSphereSpeedCoef = sphereSpeed / levelLength;
     }
     
     public void ProgressStop()
     {
-        // todo
+        mSphereSpeedCoef = 0;
     }
     
     public void ProgressReset()
     {
-        // todo
+        mProgressBar.localScale = new Vector3(0, mProgressBar.localScale.y);
+    }
+
+    public void ProgressProcess()
+    {
+        var horizontalStep = mSphereSpeedCoef * Time.deltaTime;
+        mProgressBar.localScale = new Vector3(mProgressBar.localScale.x + horizontalStep, mProgressBar.localScale.y);
     }
     
     public void SetScreen(eMode screen)

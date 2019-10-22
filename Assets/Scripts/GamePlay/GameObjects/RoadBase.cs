@@ -12,6 +12,10 @@ public abstract class RoadBase : ObjectBase
 
     protected Parameters mParameters;
 
+    protected int mCurrentBlocksInHeight;
+    protected int mBlocksInHeight;
+    protected int mBlocksInLength;
+
     public abstract void Build(Level level);
     public abstract void Destroy();
     public abstract bool DestroyUpperRow();
