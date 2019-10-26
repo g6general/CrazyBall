@@ -73,6 +73,7 @@ public class Ball : HeroBase
             h = mAmplitude;
 
         var verticalSpeed = mVerticalSpeed * Mathf.Sqrt(1f - h / (mParameters.mSlowDownCoef * mAmplitude));
+        //var verticalSpeed = mVerticalSpeed;
 
         var verticalStep = verticalSpeed * Time.deltaTime;
         transform.Translate(mDirection * verticalStep);
@@ -90,7 +91,7 @@ public class Ball : HeroBase
     {
         var horizontalStep = mHorizontalSpeed * Time.deltaTime;
         mViewPoint.transform.Translate(Vector3.forward * horizontalStep);
-        mViewPoint.transform.Translate(Vector3.down * mDestroySpeed);
+        transform.Translate(Vector3.down * mDestroySpeed);
     }
     
     public override void Break()
@@ -127,6 +128,13 @@ public class Ball : HeroBase
         {
             if (collisionEvent != null)
                 collisionEvent(new GameEvent(GameEventsList.eType.GE_COLLISION_OCCURRED));
+
+            float newViewPointPosY = mViewPoint.position.y - mParameters.mBlockSizeY;
+            mViewPoint.position = new Vector3(mViewPoint.position.x, newViewPointPosY, mViewPoint.position.z);
+
+            float newSpherePosY = mViewPoint.position.y + mAmplitude / 2;
+            transform.position = new Vector3(transform.position.x, newSpherePosY, transform.position.z);
+
         }
     }
     

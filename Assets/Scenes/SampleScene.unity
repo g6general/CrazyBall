@@ -293,7 +293,7 @@ MonoBehaviour:
   mHorizontalSpeed: 15
   mVerticalSpeed: 30
   mSlowDownCoef: 1.05
-  mDestroySpeed: 1
+  mDestroySpeed: 0.5
   mStartLongitudinalOffset: -2
   mAmplitude: 5
 --- !u!114 &87680928
@@ -5526,6 +5526,16 @@ PrefabInstance:
     - target: {fileID: 5169956402946657073, guid: cb4545e890da94840b0b352276bd2b30,
         type: 3}
       propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5169956402946657073, guid: cb4545e890da94840b0b352276bd2b30,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5169956402946657073, guid: cb4545e890da94840b0b352276bd2b30,
+        type: 3}
+      propertyPath: m_Interpolate
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
