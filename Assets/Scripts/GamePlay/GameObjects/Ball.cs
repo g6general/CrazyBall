@@ -13,6 +13,11 @@ public class Ball : HeroBase
     private Color mColor;
     private Vector3 mDirection;
     
+    //
+    private bool mCameraMoveDown;
+    private uint mTestCollisionCounter;    // temp
+    //
+    
     public event GameEventHandlerDelegate tapUpEvent;
     public event GameEventHandlerDelegate tapDownEvent;
     public event GameEventHandlerDelegate collisionEvent;
@@ -39,6 +44,11 @@ public class Ball : HeroBase
         
         mDirection = Vector3.up;
         mGameData = gameData;
+        
+        //
+        mCameraMoveDown = false;
+        mTestCollisionCounter = 0;
+        //
     }
 
     public override void Move()
@@ -91,7 +101,9 @@ public class Ball : HeroBase
     {
         var horizontalStep = mHorizontalSpeed * Time.deltaTime;
         mViewPoint.transform.Translate(Vector3.forward * horizontalStep);
-        transform.Translate(Vector3.down * mDestroySpeed);
+        
+        if (!mCameraMoveDown)
+            transform.Translate(Vector3.down * mDestroySpeed * Time.deltaTime);
     }
     
     public override void Break()
@@ -129,12 +141,16 @@ public class Ball : HeroBase
             if (collisionEvent != null)
                 collisionEvent(new GameEvent(GameEventsList.eType.GE_COLLISION_OCCURRED));
 
-            float newViewPointPosY = mViewPoint.position.y - mParameters.mBlockSizeY;
-            mViewPoint.position = new Vector3(mViewPoint.position.x, newViewPointPosY, mViewPoint.position.z);
+            //float newViewPointPosY = mViewPoint.position.y - mParameters.mBlockSizeY;
+            //mViewPoint.position = new Vector3(mViewPoint.position.x, newViewPointPosY, mViewPoint.position.z);
 
-            float newSpherePosY = mViewPoint.position.y + mAmplitude / 2;
-            transform.position = new Vector3(transform.position.x, newSpherePosY, transform.position.z);
+            //float newSpherePosY = mViewPoint.position.y + mAmplitude / 2;
+            //transform.position = new Vector3(transform.position.x, newSpherePosY, transform.position.z);
 
+            //
+            ++mTestCollisionCounter;
+            mCameraMoveDown = true;
+            //
         }
     }
     
@@ -164,5 +180,13 @@ public class Ball : HeroBase
             if (winEvent != null)
                 winEvent(new GameEvent(GameEventsList.eType.GE_WIN));
         }
+
+        //
+        if (mCameraMoveDown)
+            mViewPoint.transform.Translate(Vector3.down * mDestroySpeed * Time.deltaTime);
+
+        if (mViewPoint.position.y <= mStartPoint.position.y - mParameters.mBlockSizeY * mTestCollisionCounter)
+            mCameraMoveDown = false;
+        //
     }
 }
