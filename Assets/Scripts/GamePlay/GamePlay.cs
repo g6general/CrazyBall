@@ -62,6 +62,7 @@ public class GamePlay : GameEventSubscriber
         public float currentWallHeight;
         public float initialWallHeight;
         public float initialWallLength;
+        public uint collisionCounter;
     }
 
     public GamePlay(Parameters parameters)
@@ -79,6 +80,8 @@ public class GamePlay : GameEventSubscriber
         mGameObjects.Add("Road", GameObject.Find("MainObject").GetComponent<Wall>());
 
         mTimer = new Timer(this);
+
+        mGameData.collisionCounter = 0;
     }
     
     public void BeforeBeginSession()
@@ -277,6 +280,7 @@ public class GamePlay : GameEventSubscriber
         {
             ((Wall)mGameObjects["Road"]).DestroyUpperRow();
             Handheld.Vibrate();
+            ++mGameData.collisionCounter;
         }
 
         if (IsCurrentEvent(GameEventsList.eType.GE_WIN))
@@ -286,6 +290,7 @@ public class GamePlay : GameEventSubscriber
             mUi.SetScreen(UiSystem.eMode.DEBRIEFING_WIN_SCREEN);
             mUi.ProgressStop();
             mGameProcess = false;
+            mGameData.collisionCounter = 0;
         }
 
         if (IsCurrentEvent(GameEventsList.eType.GE_DEFEAT))
@@ -294,6 +299,7 @@ public class GamePlay : GameEventSubscriber
             mUi.SetScreen(UiSystem.eMode.DEBRIEFING_DEFEAT_SCREEN);
             mUi.ProgressStop();
             mGameProcess = false;
+            mGameData.collisionCounter = 0;
         }
     }
 

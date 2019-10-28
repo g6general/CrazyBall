@@ -138,6 +138,8 @@ public class Ball : HeroBase
         
         if (mMoveType == eMoveType.FIRE)
         {
+            //GameObject.Find("MainObject").GetComponent<Wall>().DestroyUpperRow();
+            
             if (collisionEvent != null)
                 collisionEvent(new GameEvent(GameEventsList.eType.GE_COLLISION_OCCURRED));
 
@@ -182,11 +184,15 @@ public class Ball : HeroBase
         }
 
         //
+        var newLevePositionY = mStartPoint.position.y - mParameters.mBlockSizeY * mGameData.collisionCounter;    //mTestCollisionCounter
+        if (mViewPoint.position.y <= newLevePositionY)
+        {
+            mCameraMoveDown = false;
+            mViewPoint.position = new Vector3(mViewPoint.position.x, newLevePositionY, mViewPoint.position.z);
+        }
+
         if (mCameraMoveDown)
             mViewPoint.transform.Translate(Vector3.down * mDestroySpeed * Time.deltaTime);
-
-        if (mViewPoint.position.y <= mStartPoint.position.y - mParameters.mBlockSizeY * mTestCollisionCounter)
-            mCameraMoveDown = false;
         //
     }
 }
