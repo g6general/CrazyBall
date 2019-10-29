@@ -9,7 +9,7 @@ public class Parameters : MonoBehaviour
     public float mBlockSizeY;
     public float mBlockSizeZ;
 
-    public float mDeltaZ;
+    public float mBlockDeltaZ;
 
     public Color mSoftBlockColor;
     public Color mRigidBlockColor;

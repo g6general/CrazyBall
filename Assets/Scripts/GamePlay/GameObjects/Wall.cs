@@ -44,7 +44,7 @@ public class Wall : RoadBase
             for (var j = 0; j < level.mBlocksInLength; ++j)
             {
                 var vector = new Vector3(0, i * mParameters.mBlockSizeY,
-                    j * mParameters.mBlockSizeZ + mParameters.mDeltaZ * (level.mBlocksInHeight - 1 - i));
+                    j * mParameters.mBlockSizeZ + mParameters.mBlockDeltaZ * (level.mBlocksInHeight - 1 - i));
 
                 var pos = new Position(i, j);
 
