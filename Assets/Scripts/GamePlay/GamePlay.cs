@@ -63,6 +63,7 @@ public class GamePlay : GameEventSubscriber
         public float initialWallHeight;
         public float initialWallLength;
         public uint collisionCounter;
+        public bool cameraMoveDown;
     }
 
     public GamePlay(Parameters parameters)
@@ -130,7 +131,7 @@ public class GamePlay : GameEventSubscriber
         UpdateGameData();
         CheckUiEvents();
 
-        ((Ball)mGameObjects["Hero"]).Move();
+        ((Ball) mGameObjects["Hero"]).Move();
 
         ResetEvent();
     }
@@ -140,6 +141,7 @@ public class GamePlay : GameEventSubscriber
         mGameData.currentWallHeight = ((Wall) mGameObjects["Road"]).CurrentHeight();
         mGameData.initialWallHeight = ((Wall) mGameObjects["Road"]).Height();
         mGameData.initialWallLength = ((Wall) mGameObjects["Road"]).Length();
+        mGameData.cameraMoveDown = !((Ball) mGameObjects["Hero"]).IsCameraStopped();
         
         foreach (var objectBase in mGameObjects)
         {
@@ -281,6 +283,7 @@ public class GamePlay : GameEventSubscriber
             ((Wall)mGameObjects["Road"]).DestroyUpperRow();
             Handheld.Vibrate();
             ++mGameData.collisionCounter;
+            mGameData.cameraMoveDown = true;
         }
 
         if (IsCurrentEvent(GameEventsList.eType.GE_WIN))

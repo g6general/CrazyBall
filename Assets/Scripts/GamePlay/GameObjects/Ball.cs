@@ -7,17 +7,16 @@ public class Ball : HeroBase
     private float mHorizontalSpeed;
     private float mVerticalSpeed;
     private float mDestroySpeed;
+
     private float mAmplitude;
     private float mScale;
     private float mDeltaY;
+
     private Color mColor;
     private Vector3 mDirection;
-    
-    //
-    private bool mCameraMoveDown;
-    private uint mTestCollisionCounter;    // temp
-    //
-    
+
+    private bool mStopCamera;
+
     public event GameEventHandlerDelegate tapUpEvent;
     public event GameEventHandlerDelegate tapDownEvent;
     public event GameEventHandlerDelegate collisionEvent;
@@ -44,11 +43,8 @@ public class Ball : HeroBase
         
         mDirection = Vector3.up;
         mGameData = gameData;
-        
-        //
-        mCameraMoveDown = false;
-        mTestCollisionCounter = 0;
-        //
+
+        mStopCamera = false;
     }
 
     public override void Move()
@@ -99,11 +95,19 @@ public class Ball : HeroBase
     
     private void Fire()
     {
+        mStopCamera = false;
+        
         var horizontalStep = mHorizontalSpeed * Time.deltaTime;
         mViewPoint.transform.Translate(Vector3.forward * horizontalStep);
-        
-        if (!mCameraMoveDown)
+
+        if (mGameData.cameraMoveDown)
+        {
+            mViewPoint.transform.Translate(Vector3.down * mDestroySpeed * Time.deltaTime);
+        }
+        else
+        {
             transform.Translate(Vector3.down * mDestroySpeed * Time.deltaTime);
+        }
     }
     
     public override void Break()
@@ -134,25 +138,14 @@ public class Ball : HeroBase
         {
             if (defeatEvent != null)
                 defeatEvent(new GameEvent(GameEventsList.eType.GE_DEFEAT));
+
+            return;
         }
         
         if (mMoveType == eMoveType.FIRE)
         {
-            //GameObject.Find("MainObject").GetComponent<Wall>().DestroyUpperRow();
-            
             if (collisionEvent != null)
                 collisionEvent(new GameEvent(GameEventsList.eType.GE_COLLISION_OCCURRED));
-
-            //float newViewPointPosY = mViewPoint.position.y - mParameters.mBlockSizeY;
-            //mViewPoint.position = new Vector3(mViewPoint.position.x, newViewPointPosY, mViewPoint.position.z);
-
-            //float newSpherePosY = mViewPoint.position.y + mAmplitude / 2;
-            //transform.position = new Vector3(transform.position.x, newSpherePosY, transform.position.z);
-
-            //
-            ++mTestCollisionCounter;
-            mCameraMoveDown = true;
-            //
         }
     }
     
@@ -183,16 +176,16 @@ public class Ball : HeroBase
                 winEvent(new GameEvent(GameEventsList.eType.GE_WIN));
         }
 
-        //
-        var newLevePositionY = mStartPoint.position.y - mParameters.mBlockSizeY * mGameData.collisionCounter;    //mTestCollisionCounter
+        var newLevePositionY = mStartPoint.position.y - mParameters.mBlockSizeY * mGameData.collisionCounter;
         if (mViewPoint.position.y <= newLevePositionY)
         {
-            mCameraMoveDown = false;
+            mStopCamera = true;
             mViewPoint.position = new Vector3(mViewPoint.position.x, newLevePositionY, mViewPoint.position.z);
         }
+    }
 
-        if (mCameraMoveDown)
-            mViewPoint.transform.Translate(Vector3.down * mDestroySpeed * Time.deltaTime);
-        //
+    public bool IsCameraStopped()
+    {
+        return mStopCamera;
     }
 }
