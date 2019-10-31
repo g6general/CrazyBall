@@ -16,49 +16,28 @@ public class LevelSystem : GameEventSender
         mLooped = looped;
         
         mLevels = new List<Level>();
+
+        mCurrentLevelNumber = 0;
     }
 
     public void SetLevelForStart(int index)
     {
         // todo
         
-        // temp
         mCurrentLevelNumber = index;
-        // temp
     }
 
     public void LoadLevels()
     {
         // todo
-
-        // temp
-        var firstLevel = new Level();
-        firstLevel.mBarriers = new List<RoadBase.Position>();
-
-        uint[,] tempBlockPositions = {
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-        };
         
-        /*
-        uint[,] tempBlockPositions = {
-            { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+        var arrays = new List<uint[,]>();
+
+        uint[,] blockPositions_1 = {
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
@@ -71,22 +50,45 @@ public class LevelSystem : GameEventSender
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
         };
-        */
+        arrays.Add(blockPositions_1);
 
-        firstLevel.mBlocksInHeight = tempBlockPositions.GetUpperBound(0) + 1;
-        firstLevel.mBlocksInLength = tempBlockPositions.Length / firstLevel.mBlocksInHeight;
+        uint[,] blockPositions_2 = {
+            { 0, 0, 0, 0, 1, 1 },
+            { 1, 1, 1, 0, 0, 0 },
+            { 1, 1, 1, 0, 0, 0 },
+            { 1, 0, 1, 1, 0, 0 },
+            { 1, 1, 1, 1, 0, 0 }
+        };
+        arrays.Add(blockPositions_2);
+        
+        uint[,] blockPositions_3 = {
+            { 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0 },
+            { 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+        };
+        arrays.Add(blockPositions_3);
 
-        for (var i = 0; i < firstLevel.mBlocksInHeight; i++)
+        for (var i = 0; i < arrays.Count; i++)
         {
-            for (var j = 0; j < firstLevel.mBlocksInLength; ++j)
+            var firstLevel = new Level();
+            firstLevel.mBarriers = new List<RoadBase.Position>();
+
+            firstLevel.mBlocksInHeight = arrays[i].GetUpperBound(0) + 1;
+            firstLevel.mBlocksInLength = arrays[i].Length / firstLevel.mBlocksInHeight;
+
+            for (var j = 0; j < firstLevel.mBlocksInHeight; j++)
             {
-                if (tempBlockPositions[i, j] == 1)
-                    firstLevel.mBarriers.Add(new RoadBase.Position(firstLevel.mBlocksInHeight - 1 - i, j));
+                for (var k = 0; k < firstLevel.mBlocksInLength; ++k)
+                {
+                    if (arrays[i][j, k] == 1)
+                        firstLevel.mBarriers.Add(new RoadBase.Position(firstLevel.mBlocksInHeight - 1 - j, k));
+                }
             }
+
+            mLevels.Add(firstLevel);
         }
-        
-        mLevels.Add(firstLevel);
-        // temp
     }
 
     public int GetNumberOfLevels()
@@ -100,24 +102,25 @@ public class LevelSystem : GameEventSender
     public int GetCurrentLevelNumber()
     {
         // todo
-        
-        // temp
+
         return mCurrentLevelNumber;
-        // temp
     }
 
     public Level GetCurrentLevel()
     {
         // todo
-
-        // temp
-        return mLevels[0];
-        // temp
+        
+        return mLevels[mCurrentLevelNumber];
     }
 
     public void LevelUp()
     {
         // todo
+        
+        ++mCurrentLevelNumber;
+
+        if (mCurrentLevelNumber == mLevels.Count)
+            mCurrentLevelNumber = 0;
     }
 }
 
