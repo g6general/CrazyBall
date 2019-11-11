@@ -283,7 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mBlockSizeX: 3
-  mBlockSizeY: 1
+  mBlockSizeY: 1.5
   mBlockSizeZ: 8
   mBlockDeltaZ: 0.9
   mSoftBlockColor: {r: 1, g: 1, b: 1, a: 0}
@@ -291,11 +291,11 @@ MonoBehaviour:
   mSphereColor: {r: 1, g: 1, b: 1, a: 0}
   mSphereScale: 1.6
   mHorizontalSpeed: 12
-  mVerticalSpeed: 17.5
+  mVerticalSpeed: 15
   mSlowDownCoef: 1.1
-  mDestroySpeed: 18
+  mDestroySpeed: 15
   mStartLongitudinalOffset: -2
-  mAmplitude: 2.8
+  mAmplitude: 1.5
 --- !u!114 &87680928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3738,7 +3738,7 @@ Canvas:
   m_GameObject: {fileID: 1261124960}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
