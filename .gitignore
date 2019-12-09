@@ -2,9 +2,11 @@
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
+[Bb]uilds/
 Logs/
 Packages/
 Plugins/
+venv/
 Plugins.meta
 Assets/AssetStoreTools*
 
