@@ -10,6 +10,7 @@ venv/
 Plugins.meta
 Assets/AssetStoreTools*
 
+levels.json
 profile.json
 profile.json.meta
 settings.json
