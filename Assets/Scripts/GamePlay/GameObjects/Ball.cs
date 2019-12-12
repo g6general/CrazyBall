@@ -167,8 +167,8 @@ public class Ball : HeroBase
                 tapUpEvent(new GameEvent(GameEventsList.eType.GE_TAP_UP_OCCURRED));
         }
 
-        var isLengthPassed = (transform.position.z >=
-                              (mGameData.initialWallLength - 0.5f) * mParameters.mBlockSizeZ);
+        var isLengthPassed = (transform.position.z >= (mGameData.initialWallLength - 0.5f) *
+                              mParameters.mBlockSizeZ + mGameData.blockDeltaZ * mGameData.finishOffset);
 
         if (isLengthPassed)
         {
