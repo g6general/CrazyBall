@@ -11,7 +11,9 @@ Plugins.meta
 Assets/AssetStoreTools*
 
 levels.json
+levels.json.meta
 levels.xml
+levels.xml.meta
 google_authentication.json
 
 profile.json
