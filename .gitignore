@@ -2,11 +2,19 @@
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
+[Bb]uilds/
 Logs/
 Packages/
 Plugins/
+venv/
 Plugins.meta
 Assets/AssetStoreTools*
+
+levels.json
+levels.json.meta
+levels.xml
+levels.xml.meta
+google_authentication.json
 
 profile.json
 profile.json.meta

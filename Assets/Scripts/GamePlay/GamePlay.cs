@@ -64,6 +64,8 @@ public class GamePlay : GameEventSubscriber
         public float initialWallLength;
         public uint collisionCounter;
         public bool cameraMoveDown;
+        public int finishOffset;
+        public float blockDeltaZ;
     }
 
     public GamePlay(Parameters parameters)
@@ -141,6 +143,8 @@ public class GamePlay : GameEventSubscriber
         mGameData.currentWallHeight = ((Wall) mGameObjects["Road"]).CurrentHeight();
         mGameData.initialWallHeight = ((Wall) mGameObjects["Road"]).Height();
         mGameData.initialWallLength = ((Wall) mGameObjects["Road"]).Length();
+        mGameData.finishOffset = ((Wall) mGameObjects["Road"]).FinishOffset();
+        mGameData.blockDeltaZ = ((Wall) mGameObjects["Road"]).BlockDeltaZ();
         mGameData.cameraMoveDown = !((Ball) mGameObjects["Hero"]).IsCameraStopped();
         
         foreach (var objectBase in mGameObjects)
@@ -219,7 +223,11 @@ public class GamePlay : GameEventSubscriber
         if (IsCurrentEvent(GameEventsList.eType.GE_START_GAME))
         {
             mUi.SetScreen(UiSystem.eMode.GAME_SCREEN);
-            mUi.ProgressStart(mParameters.mHorizontalSpeed, mGameData.initialWallLength * mParameters.mBlockSizeZ);
+
+            float levelLength = mGameData.initialWallLength * mParameters.mBlockSizeZ +
+                                mGameData.blockDeltaZ * mGameData.finishOffset;
+
+            mUi.ProgressStart(mParameters.mHorizontalSpeed, levelLength);
             ((Ball)mGameObjects["Hero"]).SetMoveType(HeroBase.eMoveType.FORWARD);
             mGameProcess = true;
         }

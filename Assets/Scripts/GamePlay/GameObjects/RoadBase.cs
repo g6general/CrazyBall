@@ -15,6 +15,7 @@ public abstract class RoadBase : ObjectBase
     protected int mCurrentBlocksInHeight;
     protected int mBlocksInHeight;
     protected int mBlocksInLength;
+    protected int mFinishOffset;
 
     public abstract void Build(Level level);
     public abstract void Destroy();

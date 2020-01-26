@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Wall : RoadBase
@@ -66,6 +65,7 @@ public class Wall : RoadBase
         mCurrentBlocksInHeight = level.mBlocksInHeight;
         mBlocksInHeight = level.mBlocksInHeight;
         mBlocksInLength = level.mBlocksInLength;
+        mFinishOffset = level.mFinishOffset;
     }
 
     public float CurrentHeight()
@@ -81,6 +81,19 @@ public class Wall : RoadBase
     public float Length()
     {
         return mBlocksInLength;
+    }
+    
+    public int FinishOffset()
+    {
+        return mFinishOffset;
+    }
+    
+    public float BlockDeltaZ()
+    {
+        if (mParameters)
+            return mParameters.mBlockDeltaZ;
+        else
+            return 0.0f;
     }
 
     public override void Destroy()

@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
+using System.IO;
 
 public class LevelSystem : GameEventSender
 {
@@ -27,67 +30,63 @@ public class LevelSystem : GameEventSender
         mCurrentLevelNumber = index;
     }
 
+    private string GetConfigData(string fileName)
+    {
+        var configPath = Path.Combine(Application.streamingAssetsPath + "/", fileName);
+        string data;
+            
+#if UNITY_EDITOR || UNITY_IOS
+        data = File.ReadAllText(configPath);
+#elif UNITY_ANDROID
+            WWW reader = new WWW (configPath);
+            while (!reader.isDone) {}
+            data = reader.text;
+#endif
+        return data;
+    }
+
     public void LoadLevels()
     {
-        // todo
-        
-        var arrays = new List<uint[,]>();
+        var levels = XElement.Parse(GetConfigData("levels.xml"));
 
-        uint[,] blockPositions_1 = {
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-        };
-        arrays.Add(blockPositions_1);
-
-        uint[,] blockPositions_2 = {
-            { 0, 0, 0, 0, 1, 1 },
-            { 1, 1, 1, 0, 0, 0 },
-            { 1, 1, 1, 0, 0, 0 },
-            { 1, 0, 1, 1, 0, 0 },
-            { 1, 1, 1, 1, 0, 0 }
-        };
-        arrays.Add(blockPositions_2);
-        
-        uint[,] blockPositions_3 = {
-            { 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0 },
-            { 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0 },
-            { 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0 },
-            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-        };
-        arrays.Add(blockPositions_3);
-
-        for (var i = 0; i < arrays.Count; i++)
+        var curLevel = levels.FirstNode;
+        while (curLevel != null)
         {
-            var firstLevel = new Level();
-            firstLevel.mBarriers = new List<RoadBase.Position>();
+            var nodeLevel = (XElement) curLevel;
 
-            firstLevel.mBlocksInHeight = arrays[i].GetUpperBound(0) + 1;
-            firstLevel.mBlocksInLength = arrays[i].Length / firstLevel.mBlocksInHeight;
+            var columnsAttr = nodeLevel.FirstAttribute;
+            var finishAttr = columnsAttr.NextAttribute;
+            var rowsAttr = finishAttr.NextAttribute;
 
-            for (var j = 0; j < firstLevel.mBlocksInHeight; j++)
+            var level = new Level();
+            level.mBlocksInHeight = Convert.ToInt32(rowsAttr.Value);
+            level.mBlocksInLength = Convert.ToInt32(columnsAttr.Value);
+            level.mFinishOffset = Convert.ToInt32(finishAttr.Value);
+
+            var pos = nodeLevel.FirstNode;
+            while (pos != null)
             {
-                for (var k = 0; k < firstLevel.mBlocksInLength; ++k)
-                {
-                    if (arrays[i][j, k] == 1)
-                        firstLevel.mBarriers.Add(new RoadBase.Position(firstLevel.mBlocksInHeight - 1 - j, k));
-                }
-            }
+                var nodePos = (XElement) pos;
 
-            mLevels.Add(firstLevel);
+                var iPosAttr = nodePos.FirstAttribute;
+                var jPosAttr = iPosAttr.NextAttribute;
+                var valueAttr = jPosAttr.NextAttribute;
+                
+                var iPos = Convert.ToInt32(iPosAttr.Value);
+                var jPos = Convert.ToInt32(jPosAttr.Value);
+
+                if (valueAttr.Value == "rigid")
+                {
+                    var mirroredPosI = level.mBlocksInHeight - iPos - 1;
+                    level.mBarriers.Add(new RoadBase.Position(mirroredPosI, jPos)); 
+                }
+
+                pos = pos.NextNode;
+            }
+            
+            mLevels.Add(level);
+                
+            curLevel = curLevel.NextNode;
         }
     }
 
@@ -124,12 +123,19 @@ public class LevelSystem : GameEventSender
     }
 }
 
-public struct Level
+public class Level
 {
-    // todo
+    public Level()
+    {
+        mBarriers = new List<RoadBase.Position>();
+        mBlocksInLength = 0;
+        mBlocksInHeight = 0;
+        mFinishOffset = 0;
+    }
     
     public List<RoadBase.Position> mBarriers;
     
     public int mBlocksInLength;
     public int mBlocksInHeight;
+    public int mFinishOffset;
 }
